@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Jan Babś">
+
+    <!-- Bootstrap CSS -->
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+
+    <title>Książki</title>
+</head>
+<body>
+<div th:replace="template :: nav"></div>
+<div class="container">
+    <div class="row" id='bookListPage'>
+        <div class="col-sm-4 col-lg-4 col-md-4" th:each="book:${lista}" id='eachLayoutForBook'>
+            <div class="thumbnail" id='wholeItemBookContent'>
+                <img style="width:280px; height:360px;" th:src="${book.urlPhoto}" alt=""/>
+                <div class="caption" id='descriptionOfEachItem'>
+                    <h4 class="pull-right" th:text="${book.price} +' zł'" id='priceForEachBook'></h4>
+                    <h4 th:text="${book.title}" id='bookTitle'></h4>
+                    <a th:href="@{/books/{id}(id = ${book.id})}" class="btn btn-primary"
+                       id='descriptionEachFishButton'>Szczegóły</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
