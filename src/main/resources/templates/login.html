@@ -14,7 +14,7 @@
     <title th:text="${title}">Strona główna</title>
 </head>
 <body>
-<div th:replace="template :: navfix"></div>
+<div th:replace="navfix :: navfix"></div>
 
 <form class="form-signin" th:action="@{/login}" method="post">
     <div class="text-center mb-4">

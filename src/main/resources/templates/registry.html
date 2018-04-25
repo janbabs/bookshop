@@ -15,7 +15,7 @@
     <title>Rejestracja</title>
 </head>
 <body>
-<div th:replace="template :: navfix"></div>
+<div th:replace="navfix :: navfix"></div>
 
 <form class="form-signin" method="post" th:action="@{/user/add}" th:object="${userTO}">
     <div class="text-center mb-4">

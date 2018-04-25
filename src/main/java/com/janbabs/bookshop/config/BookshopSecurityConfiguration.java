@@ -40,9 +40,25 @@ public class BookshopSecurityConfiguration extends WebSecurityConfigurerAdapter{
 //                .logoutSuccessUrl("/");
 //    }
 
+//    @Override
+//    protected void configure(final HttpSecurity http) throws Exception {
+//        http
+//                .formLogin().loginPage("/login").usernameParameter("login").passwordParameter("password").defaultSuccessUrl("/")
+//                .and()
+//                .logout().logoutUrl("logout").logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+//                .logoutSuccessUrl("/");
+//        http.csrf().disable();
+//        http.headers().frameOptions().disable();
+//    }
+
     @Override
-    protected void configure(final HttpSecurity http) throws Exception {
-        http
+    protected void configure(HttpSecurity http) throws Exception {
+        http.authorizeRequests()
+                .antMatchers("/books/add").hasAuthority("ADMIN")
+                .antMatchers("/books/delete/**").hasAuthority("ADMIN")
+                .antMatchers("/user/add").permitAll()
+                .antMatchers("/user/**").hasAuthority("ADMIN")
+                .and()
                 .formLogin().loginPage("/login").usernameParameter("login").passwordParameter("password").defaultSuccessUrl("/")
                 .and()
                 .logout().logoutUrl("logout").logoutRequestMatcher(new AntPathRequestMatcher("/logout"))

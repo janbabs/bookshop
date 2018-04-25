@@ -43,6 +43,6 @@ public class UserServices {
 
     private User convertToUser(UserTO userTo) {
         String hashPassword = passwordEncoder.encode(userTo.getPassword());
-        return new User(userTo.getLogin(), hashPassword, userTo.getFirstName(), userTo.getLastName(), userTo.getEmail(), userType.USER);
+        return new User(userTo.getLogin(), hashPassword, userTo.getFirstName(), userTo.getLastName(), userTo.getEmail(), userTo.getUserType());
     }
 }

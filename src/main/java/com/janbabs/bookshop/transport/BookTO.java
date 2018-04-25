@@ -1,11 +1,11 @@
 package com.janbabs.bookshop.transport;
 
 import com.janbabs.bookshop.domain.Book;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 
@@ -23,18 +23,18 @@ public class BookTO {
     private String author;
     @Size(max = 100, message = "Nazwa wydawnictwa jest zbyt długa")
     private String publisher;
-    @Size(max = 500, message = "Zbyt długi opis")
+    @Size(max = 1000, message = "Zbyt długi opis")
     private String description;
-
     private String urlPhoto;
 
     public BookTO(Book book) {
+        this.id = book.getId();
         this.title = book.getTitle();
         this.price = book.getPrice();
         this.author = book.getAuthor();
         this.publisher = book.getPublisher();
-        this.urlPhoto = book.getUrlPhoto();
         this.description = book.getDescription();
+        this.urlPhoto = book.getUrlPhoto();
     }
 
 }

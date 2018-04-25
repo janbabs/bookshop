@@ -37,6 +37,7 @@ public class UserController {
         if (bindingResult.hasErrors()) {
             return "registry";
         }
+        userTO.setUserType(userType.USER);
         userServices.save(userTO);
         return "redirect:/login";
     }
