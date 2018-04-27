@@ -9,10 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -42,5 +39,21 @@ public class UserController {
         return "redirect:/login";
     }
 
+    @GetMapping("/all")
+    public String getUsersPage(Model model){
+        model.addAttribute("users", userServices.findAll());
+        return "users";
+    }
 
+    @GetMapping("/delete/{id}")
+    public String deleteUser(@PathVariable(name = "id") Long id) {
+        userServices.delete(id);
+        return  "redirect:/user/all";
+    }
+
+    @GetMapping("/promote/{id}")
+    public String promoteToAdmin(@PathVariable(name = "id") Long id) {
+        userServices.promoteToAdmin(id);
+        return "redirect:/user/all";
+    }
 }

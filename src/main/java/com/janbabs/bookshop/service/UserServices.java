@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -44,5 +45,12 @@ public class UserServices {
     private User convertToUser(UserTO userTo) {
         String hashPassword = passwordEncoder.encode(userTo.getPassword());
         return new User(userTo.getLogin(), hashPassword, userTo.getFirstName(), userTo.getLastName(), userTo.getEmail(), userTo.getUserType());
+    }
+
+    public void promoteToAdmin(Long id) {
+        Optional<User> userOptional = userRepository.findById(id);
+        User user = userOptional.get();
+        user.setUserType(userType.ADMIN);
+        userRepository.saveAndFlush(user);
     }
 }

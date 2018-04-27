@@ -3,8 +3,7 @@
 <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark" role="navigation" th:fragment="navfix">
     <div class="container">
         <a class="navbar-brand" th:href="@{/}">Libre</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
-                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
 
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -15,10 +14,11 @@
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/about}"> Kontakt</a>
                 </li>
-                <li><a th:href="@{/order}" sec:authorize="isAuthenticated()">Zamówienia</a></li>
-                <li><a th:href="@{/addbook}" sec:authorize="hasAuthority('ADMIN')">Dodaj ksiązke</a></li>
+                <li><a class="nav-link" th:href="@{/order}" sec:authorize="isAuthenticated()">Zamówienia</a></li>
+                <li><a class="nav-link" th:href="@{/books/add}" sec:authorize="hasAuthority('ADMIN')">Dodaj książkę</a></li>
+                <li><a class="nav-link" th:href="@{/users}" sec:authorize="hasAuthority('ADMIN')">Użytkownicy</a></li>
             </ul>
-            <ul class="nav navbar-nav navbar-right" sec:authorize="!isAuthenticated()">
+            <ul class="nav navbar-nav navbar-right" sec:authorize="!isAuthenticated()" >
                 <li><a class="nav-link" th:href="@{/login}"> Logowanie</a></li>
                 <li><a class="nav-link" th:href="@{/user/add}"> Rejestracja</a></li>
             </ul>
