@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Jan Babś">
+
+    <!-- Bootstrap CSS -->
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link th:href="@{/css/floatingtextsignin.css}" rel="stylesheet"/>
+
+    <title>Zamów książkę</title>
+</head>
+<body>
+<div th:replace="navfix :: navfix"></div>
+
+<form class="form-signin" method="post" th:action="@{${#httpServletRequest.requestURI}}" th:object="${orderTO}">
+    <div class="text-center mb-4">
+        <h1 class="h3 mb-3 font-weight-normal">Zamów</h1>
+    </div>
+
+    <div class="form-label-group">
+        <input type="text" id="inputTitle" class="form-control" th:field="*{phonenumber}" placeholder="Numer telefonu"
+               required autofocus>
+        <label for="inputTitle">Numer telefonu</label>
+        <span class="label label-danger" th:if="${#fields.hasErrors('phonenumber')}" th:errors="${orderTO.phonenumber}"></span>
+    </div>
+
+
+    <div class="form-label-group">
+        <input type="number" id="inputprice" class="form-control" th:field="*{city}" placeholder="Miasto" required>
+        <label for="inputprice">Miasto</label>
+        <span class="label label-danger" th:if="${#fields.hasErrors('city')}" th:errors="${orderTO.city}"></span>
+    </div>
+
+    <div class="form-label-group">
+        <input type="text" id="inputAuthor" class="form-control" th:field="*{author}" placeholder="Autor"
+               required>
+        <label for="inputAuthor">Autor</label>
+        <span class="label label-danger" th:if="${#fields.hasErrors('author')}" th:errors="${bookTO.author}"></span>
+    </div>
+
+    <div class="form-label-group">
+        <input type="text" id="inputPublisher" class="form-control" th:field="*{publisher}" placeholder="Wydawca">
+        <label for="inputPublisher">Wydawnictwo</label>
+        <span class="label label-danger" th:if="${#fields.hasErrors('publisher')}" th:errors="${bookTO.publisher}"></span>
+    </div>
+    <div class="form-label-group">
+        <input type="url" id="inputUrlPhoto" class="form-control" th:field="*{urlPhoto}" placeholder="Link do zdjęcia" required>
+        <label for="inputUrlPhoto">Link do zdjęcia</label>
+        <span class="label label-danger" th:if="${#fields.hasErrors('urlPhoto')}" th:errors="${bookTO.urlPhoto}"></span>
+    </div>
+    <div class="form-label-group">
+        <label for="inputDescription">Opis</label>
+        <textarea class="form-control" id="inputDescription" rows="3" th:field="*{description}" placeholder=""></textarea>
+        <span class="label label-danger" th:if="${#fields.hasErrors('description')}" th:errors="${bookTO.description}"></span>
+    </div>
+
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Dodaj książkę</button>
+
+</form>
+</body>
+</html>

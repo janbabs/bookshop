@@ -50,6 +50,7 @@ public class BookshopApplication {
 							" Rosną odległości między pustoszejącymi osadami. Wydaje się, że nikt ani nic..."
 					, "http://ecsmedia.pl/c/malowany-czlowiek-ksiega-1-w-iext39340767.jpg"));
 			userServices.save(new UserTO("admin", "password", "imie", "nazwisko", "email@email", userType.ADMIN));
+			userServices.save(new UserTO("user	", "password", "imie1", "nazwisko2", "email1@email", userType.USER));
 		};
 	}
 }
