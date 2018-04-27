@@ -5,10 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -21,11 +18,11 @@ public class Address {
     private Long id;
     private String street;
     private String city;
-    private String phonenumber;
+    private String zipcode;
 
-    public Address(String street, String city, String phonenumber) {
+    public Address(String street, String city, String zipcode) {
         this.street = street;
         this.city = city;
-        this.phonenumber = phonenumber;
+        this.zipcode = zipcode;
     }
 }

@@ -13,16 +13,14 @@
 <body>
 <div th:replace="template :: nav"></div>
 <div class="container">
-    <div class="row" id='bookListPage'>
-        <div class="col-sm-4 col-lg-4 col-md-4" th:each="book:${lista}" id='eachLayoutForBook'>
-            <div class="thumbnail" id='wholeItemBookContent'>
+    <div class="row">
+        <div class="col-sm-4 col-lg-4 col-md-4" th:each="book:${lista}">
+            <div class="thumbnail">
                 <img style="width:280px; height:360px;" th:src="${book.urlPhoto}" alt=""/>
-                <div class="caption" id='descriptionOfEachItem'>
-                    <h4 class="pull-right" th:text="${book.price} +' zł'" id='priceForEachBook'></h4>
-                    <h4 th:text="${book.title}" id='bookTitle'></h4>
-                    <a th:href="@{/books/{id}(id = ${book.id})}" class="btn btn-primary"
-                       id='descriptionEachFishButton'>Szczegóły</a>
-                </div>
+                <div class="caption">
+                    <h4 class="pull-right" th:text="${book.price} +' zł'"></h4>
+                    <h4 th:text="${book.title}"></h4>
+                    <a th:href="@{/books/{id}(id = ${book.id})}" class="btn btn-primary">Szczegóły</a>
             </div>
         </div>
     </div>

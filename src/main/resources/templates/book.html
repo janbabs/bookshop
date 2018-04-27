@@ -11,7 +11,7 @@
     <title th:text="${book.title}">Książka</title>
 </head>
 <body>
-<div th:replace="navfix :: navfix"></div>
+<div th:replace="template :: nav"></div>
 
 <div class="container">
 
@@ -24,11 +24,12 @@
         <div class="col-md-6">
             <h5 th:text="'Autor: ' + ${book.author}"></h5>
             <h5 th:text="${book.publisher}"></h5>
-
+            <h5 th:text="'Cena: ' +${book.price} + ' zł'"></h5>
+            <a th:href="@{/order/add/{id}(id = ${book.id})}" class="btn btn-primary">Kup</a>
         </div>
     </div>
     <div class="row">
-        <p th:utext="'Opis: ' + '<br />' + ${book.description}"></p>
+        <p th:text="'Opis: ' + '<br />' + ${book.description}"></p>
     </div>
 
 </div>

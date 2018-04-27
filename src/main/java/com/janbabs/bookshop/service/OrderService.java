@@ -36,8 +36,9 @@ public class OrderService {
 
     private Order convertOrderTOtoOrder(OrderTO orderTO) {
         Order order = new Order();
-        Address address = new Address(orderTO.getStreet(), orderTO.getCity(), orderTO.getPhonenumber());
+        Address address = new Address(orderTO.getStreet(), orderTO.getCity(), orderTO.getZipcode());
         order.setAddress(address);
+        order.setPhonenumber(orderTO.getPhonenumber());
         return order;
     }
 }
