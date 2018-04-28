@@ -1,0 +1,14 @@
+.fieldName {
+    margin-top: 10px;
+    text-align: right;
+}
+
+.fieldValue {
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 24px;
+}
+.booktitle {
+    text-align: center;
+    margin-bottom: 30px;
+}

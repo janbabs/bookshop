@@ -1,6 +1,5 @@
 package com.janbabs.bookshop.service;
 
-
 import com.janbabs.bookshop.domain.User;
 import com.janbabs.bookshop.domain.userType;
 import com.janbabs.bookshop.repository.UserRepository;

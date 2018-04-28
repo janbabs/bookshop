@@ -22,4 +22,9 @@ public class HomeController {
     public String getLoginPage() {
         return "login";
     }
+
+    @GetMapping("/403")
+    public String getErrorPage() {
+        return "error";
+    }
 }

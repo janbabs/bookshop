@@ -1,7 +1,6 @@
 package com.janbabs.bookshop.transport;
 
 import com.janbabs.bookshop.domain.Book;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

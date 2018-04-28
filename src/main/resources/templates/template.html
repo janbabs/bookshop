@@ -14,7 +14,7 @@
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/about}"> Kontakt</a>
                 </li>
-                <li><a class="nav-link" th:href="@{/order}" sec:authorize="isAuthenticated()">Zamówienia</a></li>
+                <li><a class="nav-link" th:href="@{/order/all}" sec:authorize="isAuthenticated()">Zamówienia</a></li>
                 <li><a class="nav-link" th:href="@{/books/add}" sec:authorize="hasAuthority('ADMIN')">Dodaj książkę</a></li>
                 <li><a class="nav-link" th:href="@{/user/all}" sec:authorize="hasAuthority('ADMIN')">Użytkownicy</a></li>
             </ul>

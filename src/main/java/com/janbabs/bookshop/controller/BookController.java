@@ -1,6 +1,5 @@
 package com.janbabs.bookshop.controller;
 
-
 import com.janbabs.bookshop.service.BookService;
 import com.janbabs.bookshop.transport.BookTO;
 import org.springframework.stereotype.Controller;
@@ -27,7 +26,7 @@ public class BookController {
     }
 
     @GetMapping("/{id}")
-    public String  getBookByID(Model model, @PathVariable("id") Long id) {
+    public String getBookByID(Model model, @PathVariable("id") Long id) {
         model.addAttribute("book", bookService.findOne(id));
         return "book";
     }
@@ -46,8 +45,6 @@ public class BookController {
         bookService.save(bookTO);
         return "redirect:/books";
     }
-
-
 
 
 }

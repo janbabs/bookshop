@@ -1,9 +1,6 @@
 package com.janbabs.bookshop.config;
 
-
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.Query;
@@ -18,8 +15,9 @@ import javax.sql.DataSource;
 
 @Configuration
 @AllArgsConstructor
-public class BookshopSecurityConfiguration extends WebSecurityConfigurerAdapter{
+public class BookshopSecurityConfiguration extends WebSecurityConfigurerAdapter {
     private final DataSource dataSource;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
@@ -27,8 +25,13 @@ public class BookshopSecurityConfiguration extends WebSecurityConfigurerAdapter{
                 .antMatchers("/books/delete/**").hasAuthority("ADMIN")
                 .antMatchers("/user/add").permitAll()
                 .antMatchers("/user/**").hasAuthority("ADMIN")
+                .antMatchers("/order/add/**").hasAuthority("USER")
+                .antMatchers("/order/change/**").hasAuthority("ADMIN")
+                .antMatchers("/order/all").hasAnyAuthority("USER", "ADMIN")
                 .and()
                 .formLogin().loginPage("/login").usernameParameter("login").passwordParameter("password").defaultSuccessUrl("/")
+                .and()
+                .exceptionHandling().accessDeniedPage("/403")
                 .and()
                 .logout().logoutUrl("logout").logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/");
@@ -45,7 +48,7 @@ public class BookshopSecurityConfiguration extends WebSecurityConfigurerAdapter{
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         PasswordEncoder encoder = new BCryptPasswordEncoder(10);
         return encoder;
     }

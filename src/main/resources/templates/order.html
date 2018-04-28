@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Jan Babś">
+
+    <!-- Bootstrap CSS -->
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link th:href="@{/css/order.css}" rel="stylesheet"/>
+
+    <title th:text="'Zamówienie nr: ' + ${order.id}"></title>
+</head>
+<body>
+<div th:replace="template :: nav"></div>
+<div class="container jumbotron">
+    <h1 class="booktitle" th:utext="'Szczegóły zamówienia książki: ' + '<br />' + ${order.book.title}"></h1>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h3 class="fieldName">Nr zamówienia:</h3>
+                </div>
+                <div class="col-sm-6">
+                    <h4 class="fieldValue" th:text="${order.id}"></h4>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h3 class="fieldName">Status zamówienia:</h3>
+                </div>
+                <div class="col-sm-6">
+                    <h4 class="fieldValue" th:text="${order.orderStatus}"></h4>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h3 class="fieldName">Imie:</h3>
+                </div>
+                <div class="col-sm-6">
+                    <h4 class="fieldValue" th:text="${order.user.firstName}"></h4>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h3 class="fieldName">Nazwisko:</h3>
+                </div>
+                <div class="col-sm-6">
+                    <h4 class="fieldValue" th:text="${order.user.lastName}"></h4>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h3 class="fieldName">Email:</h3>
+                </div>
+                <div class="col-sm-6">
+                    <h4 class="fieldValue" th:text="${order.user.email}"></h4>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h3 class="fieldName">Nr telefonu:</h3>
+                </div>
+                <div class="col-sm-6">
+                    <h4 class="fieldValue" th:text="${order.phonenumber}"></h4>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h3 class="fieldName">Ulica:</h3>
+                </div>
+                <div class="col-sm-6">
+                    <h4 class="fieldValue" th:text="${order.address.street}"></h4>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h3 class="fieldName">Kod pocztowy:</h3>
+                </div>
+                <div class="col-sm-6">
+                    <h4 class="fieldValue" th:text="${order.address.zipcode}"></h4>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h3 class="fieldName">Miasto:</h3>
+                </div>
+                <div class="col-sm-6">
+                    <h4 class="fieldValue" th:text="${order.address.city}"></h4>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-sm-6">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h3 class="fieldName">Należność:</h3>
+                </div>
+                <div class="col-sm-6">
+                    <h4 class="fieldValue" th:text="${order.book.price} + ' zł'"></h4>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+</body>
+</html>

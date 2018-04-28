@@ -11,18 +11,15 @@ import javax.persistence.*;
 @Getter
 @Setter
 public class Book {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String title;
     private String author;
     private Integer price;
     private String publisher;
     @Column(length = 1000)
     private String description;
-
     private String urlPhoto;
 
     public Book(String title, String author, Integer price, String publisher, String description, String urlPhoto) {
