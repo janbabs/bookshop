@@ -3,7 +3,7 @@ package com.janbabs.bookshop.controller;
 import com.janbabs.bookshop.domain.Order;
 import com.janbabs.bookshop.service.BookService;
 import com.janbabs.bookshop.service.OrderService;
-import com.janbabs.bookshop.transport.OrderTO;
+import com.janbabs.bookshop.transport.OrderDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -43,19 +43,19 @@ public class OrderController {
 
     @GetMapping("/add/{id}")
     public String getAddOrderPage(Model model, @PathVariable("id") Long bookId) {
-        model.addAttribute("orderTO", new OrderTO());
-        model.addAttribute("bookTO", bookService.findOne(bookId));
+        model.addAttribute("orderDTO", new OrderDTO());
+        model.addAttribute("bookDTO", bookService.findOne(bookId));
         return "addorder";
     }
 
     @PostMapping("/add/{id}")
-    public String addOrder(@ModelAttribute @Valid OrderTO orderTO, BindingResult bindingResult, @PathVariable("id") Long bookId) {
+    public String addOrder(@ModelAttribute @Valid OrderDTO orderDTO, BindingResult bindingResult, @PathVariable("id") Long bookId) {
         if (bindingResult.hasErrors()) {
             return "addorder";
         }
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String login = auth.getName();
-        orderService.save(orderTO, login, bookId);
+        orderService.save(orderDTO, login, bookId);
         return "redirect:/order/all";
     }
 

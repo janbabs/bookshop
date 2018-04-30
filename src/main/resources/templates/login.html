@@ -7,13 +7,12 @@
 
     <!-- Bootstrap CSS -->
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
-    <!--<link th:href="@{/css/login.css}" rel="stylesheet" />-->
     <link th:href="@{/css/floatingtextsignin.css}" rel="stylesheet" />
 
     <title th:text="${title}">Strona główna</title>
 </head>
-<body>
-<div th:replace="navfix :: navfix"></div>
+<body style=" padding-top: 70px;">
+<div th:replace="template :: nav"></div>
 
 <form class="form-signin" th:action="@{/login}" method="post">
     <div class="text-center mb-4">

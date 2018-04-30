@@ -13,7 +13,7 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 @Getter
 @Setter
-public class UserTO {
+public class UserDTO {
     private Long id;
     @NotNull
     @Size(max = 20, min = 5, message = "Nazwa użytkownika musi zawierać przynajmniej 5 znakow, a maksymalnie 20")
@@ -30,7 +30,7 @@ public class UserTO {
     private String email;
     private userType userType;
 
-    public UserTO(User user) {
+    public UserDTO(User user) {
         this.id = user.getId();
         this.login = user.getLogin();
         this.password = user.getPassword();
@@ -40,7 +40,7 @@ public class UserTO {
         this.userType = user.getUserType();
     }
 
-    public UserTO(String login, String password, String firstName, String lastName, String email, userType userType) {
+    public UserDTO(String login, String password, String firstName, String lastName, String email, userType userType) {
         this.login = login;
         this.password = password;
         this.email = email;

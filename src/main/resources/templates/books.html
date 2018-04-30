@@ -7,10 +7,11 @@
 
     <!-- Bootstrap CSS -->
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link th:href="@{/css/body.css}" rel="stylesheet"/>
 
     <title>Książki</title>
 </head>
-<body>
+<body style=" padding-top: 90px;">
 <div th:replace="template :: nav"></div>
 <div class="container">
     <div class="row">
@@ -21,6 +22,7 @@
                     <h4 class="pull-right" th:text="${book.price} +' zł'"></h4>
                     <h4 th:text="${book.title}"></h4>
                     <a th:href="@{/books/{id}(id = ${book.id})}" class="btn btn-primary">Szczegóły</a>
+                </div>
             </div>
         </div>
     </div>

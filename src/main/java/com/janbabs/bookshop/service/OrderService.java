@@ -4,7 +4,7 @@ import com.janbabs.bookshop.domain.*;
 import com.janbabs.bookshop.repository.BookRepository;
 import com.janbabs.bookshop.repository.OrderRepository;
 import com.janbabs.bookshop.repository.UserRepository;
-import com.janbabs.bookshop.transport.OrderTO;
+import com.janbabs.bookshop.transport.OrderDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -21,12 +21,12 @@ public class OrderService {
     private final UserRepository userRepository;
     private final BookRepository bookRepository;
 
-    public void save(OrderTO orderTO, String userLogin, Long bookId) {
+    public void save(OrderDTO orderDTO, String userLogin, Long bookId) {
         User user = userRepository.findByLogin(userLogin);
         Book book = bookRepository.getOne(bookId);
         Date date = new Date();
         java.sql.Date dateSql = new java.sql.Date(date.getTime());
-        Order order = convertOrderTOtoOrder(orderTO);
+        Order order = convertOrderTOtoOrder(orderDTO);
         order.setOrderDate(dateSql);
         order.setUser(user);
         order.setBook(book);
@@ -35,11 +35,11 @@ public class OrderService {
         orderRepository.save(order);
     }
 
-    private Order convertOrderTOtoOrder(OrderTO orderTO) {
+    private Order convertOrderTOtoOrder(OrderDTO orderDTO) {
         Order order = new Order();
-        Address address = new Address(orderTO.getStreet(), orderTO.getCity(), orderTO.getZipcode());
+        Address address = new Address(orderDTO.getStreet(), orderDTO.getCity(), orderDTO.getZipcode());
         order.setAddress(address);
-        order.setPhonenumber(orderTO.getPhonenumber());
+        order.setPhonenumber(orderDTO.getPhonenumber());
         return order;
     }
 

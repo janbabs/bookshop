@@ -11,7 +11,7 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 @Getter
 @Setter
-public class BookTO {
+public class BookDTO {
 
     private Long id;
     @Size(max = 100, message = "Tytuł ksiązki może być dłuższy niż 100 znaków")
@@ -24,9 +24,10 @@ public class BookTO {
     private String publisher;
     @Size(max = 1000, message = "Zbyt długi opis")
     private String description;
+    @Size(max = 100, message = "Link url jest zbyt długi")
     private String urlPhoto;
 
-    public BookTO(Book book) {
+    public BookDTO(Book book) {
         this.id = book.getId();
         this.title = book.getTitle();
         this.price = book.getPrice();

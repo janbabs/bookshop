@@ -1,7 +1,7 @@
 package com.janbabs.bookshop.controller;
 
 import com.janbabs.bookshop.service.BookService;
-import com.janbabs.bookshop.transport.BookTO;
+import com.janbabs.bookshop.transport.BookDTO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -33,16 +33,16 @@ public class BookController {
 
     @GetMapping("/add")
     public String getAddBook(Model model) {
-        model.addAttribute("bookTO", new BookTO());
+        model.addAttribute("bookDTO", new BookDTO());
         return "addbook";
     }
 
     @PostMapping("/add")
-    public String addBook(@ModelAttribute @Valid BookTO bookTO, BindingResult bindingResult) {
+    public String addBook(@ModelAttribute @Valid BookDTO bookDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "addbook";
         }
-        bookService.save(bookTO);
+        bookService.save(bookDTO);
         return "redirect:/books";
     }
 

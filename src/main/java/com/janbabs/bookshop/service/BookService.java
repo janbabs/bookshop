@@ -2,7 +2,7 @@ package com.janbabs.bookshop.service;
 
 import com.janbabs.bookshop.domain.Book;
 import com.janbabs.bookshop.repository.BookRepository;
-import com.janbabs.bookshop.transport.BookTO;
+import com.janbabs.bookshop.transport.BookDTO;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -19,34 +19,34 @@ public class BookService {
         this.bookRepository = bookRepository;
     }
 
-    public List<BookTO> findAll() {
+    public List<BookDTO> findAll() {
         List<Book> books = this.bookRepository.findAll();
-        List<BookTO> booksTO = new ArrayList<>();
+        List<BookDTO> booksTO = new ArrayList<>();
         for (Book book : books) {
-            booksTO.add(new BookTO(book));
+            booksTO.add(new BookDTO(book));
         }
         return booksTO;
     }
 
-    public void save(BookTO bookTO) {
-        this.bookRepository.save(convertToBook(bookTO));
+    public void save(BookDTO bookDTO) {
+        this.bookRepository.save(convertToBook(bookDTO));
     }
 
     public void delete(Long id) {
         this.bookRepository.deleteById(id);
     }
 
-    public BookTO findOne(Long id) {
+    public BookDTO findOne(Long id) {
         Optional<Book> bookOptional = this.bookRepository.findById(id);
         Book book = bookOptional.get();
 
-        BookTO bookTO = new BookTO(book);
-        return bookTO;
+        BookDTO bookDTO = new BookDTO(book);
+        return bookDTO;
     }
 
-    private Book convertToBook(BookTO bookTO) {
-        return new Book(bookTO.getTitle(), bookTO.getAuthor(),
-                bookTO.getPrice(), bookTO.getPublisher(), bookTO.getDescription(), bookTO.getUrlPhoto());
+    private Book convertToBook(BookDTO bookDTO) {
+        return new Book(bookDTO.getTitle(), bookDTO.getAuthor(),
+                bookDTO.getPrice(), bookDTO.getPublisher(), bookDTO.getDescription(), bookDTO.getUrlPhoto());
     }
 
 

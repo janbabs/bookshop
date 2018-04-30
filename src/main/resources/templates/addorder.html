@@ -9,12 +9,13 @@
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
     <link th:href="@{/css/floatingtextsignin.css}" rel="stylesheet"/>
 
+
     <title>Zamów książkę</title>
 </head>
 <body>
-<div th:replace="navfix :: navfix"></div>
+<div th:replace="template :: nav"></div>
 
-<form class="form-signin" method="post" th:action="@{${#httpServletRequest.requestURI}}" th:object="${orderTO}">
+<form class="form-signin" method="post" th:action="@{${#httpServletRequest.requestURI}}" th:object="${orderDTO}">
     <div class="text-center mb-4">
         <h1 class="h3 mb-3 font-weight-normal">Zamów</h1>
     </div>
@@ -24,13 +25,13 @@
                required autofocus>
         <label for="inputPhonenumber">Numer telefonu</label>
         <span class="label label-danger" th:if="${#fields.hasErrors('phonenumber')}"
-              th:errors="${orderTO.phonenumber}"></span>
+              th:errors="${orderDTO.phonenumber}"></span>
     </div>
 
     <div class="form-label-group">
         <input type="text" id="inputcity" class="form-control" th:field="*{city}" placeholder="Miasto" required>
         <label for="inputcity">Miasto</label>
-        <span class="label label-danger" th:if="${#fields.hasErrors('city')}" th:errors="${orderTO.city}"></span>
+        <span class="label label-danger" th:if="${#fields.hasErrors('city')}" th:errors="${orderDTO.city}"></span>
     </div>
 
     <div class="form-label-group">
@@ -43,7 +44,7 @@
         <input type="text" id="inputZipcode" class="form-control" th:field="*{zipcode}" placeholder="Kod pocztowy"
                required>
         <label for="inputZipcode">Kod pocztowy</label>
-        <span class="label label-danger" th:if="${#fields.hasErrors('zipcode')}" th:errors="${orderTO.zipcode}"></span>
+        <span class="label label-danger" th:if="${#fields.hasErrors('zipcode')}" th:errors="${orderDTO.zipcode}"></span>
     </div>
     <button class="btn btn-lg btn-primary btn-block" type="submit">Złóż zamówienie</button>
 

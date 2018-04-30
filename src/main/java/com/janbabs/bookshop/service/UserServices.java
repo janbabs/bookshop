@@ -3,7 +3,7 @@ package com.janbabs.bookshop.service;
 import com.janbabs.bookshop.domain.User;
 import com.janbabs.bookshop.domain.userType;
 import com.janbabs.bookshop.repository.UserRepository;
-import com.janbabs.bookshop.transport.UserTO;
+import com.janbabs.bookshop.transport.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -37,13 +37,13 @@ public class UserServices {
         userRepository.deleteById(id);
     }
 
-    public void save(UserTO userTo) {
-        userRepository.save(this.convertToUser(userTo));
+    public void save(UserDTO userDTO) {
+        userRepository.save(this.convertToUser(userDTO));
     }
 
-    private User convertToUser(UserTO userTo) {
-        String hashPassword = passwordEncoder.encode(userTo.getPassword());
-        return new User(userTo.getLogin(), hashPassword, userTo.getFirstName(), userTo.getLastName(), userTo.getEmail(), userTo.getUserType());
+    private User convertToUser(UserDTO userDTO) {
+        String hashPassword = passwordEncoder.encode(userDTO.getPassword());
+        return new User(userDTO.getLogin(), hashPassword, userDTO.getFirstName(), userDTO.getLastName(), userDTO.getEmail(), userDTO.getUserType());
     }
 
     public void promoteToAdmin(Long id) {

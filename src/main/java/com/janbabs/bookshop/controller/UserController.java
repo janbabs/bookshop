@@ -2,7 +2,7 @@ package com.janbabs.bookshop.controller;
 
 import com.janbabs.bookshop.domain.userType;
 import com.janbabs.bookshop.service.UserServices;
-import com.janbabs.bookshop.transport.UserTO;
+import com.janbabs.bookshop.transport.UserDTO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,18 +21,18 @@ public class UserController {
 
     @GetMapping("/add")
     public String getRegistryPage(Model model) {
-        model.addAttribute("userTO", new UserTO());
+        model.addAttribute("userDTO", new UserDTO());
         return "registry";
     }
 
     @PostMapping("/add")
-    public String addUser(@ModelAttribute @Valid UserTO userTO, BindingResult bindingResult) {
-        userTO.setUserType(userType.ADMIN);
+    public String addUser(@ModelAttribute @Valid UserDTO userDTO, BindingResult bindingResult) {
+        userDTO.setUserType(userType.ADMIN);
         if (bindingResult.hasErrors()) {
             return "registry";
         }
-        userTO.setUserType(userType.USER);
-        userServices.save(userTO);
+        userDTO.setUserType(userType.USER);
+        userServices.save(userDTO);
         return "redirect:/login";
     }
 
