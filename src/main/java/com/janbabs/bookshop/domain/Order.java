@@ -29,6 +29,7 @@ public class Order {
     @ManyToOne(fetch = FetchType.LAZY)
     private Book book;
     private Date orderDate;
+    @Column(length = 20)
     private String phonenumber;
     private int price;
     @Enumerated(value = EnumType.STRING)

@@ -16,7 +16,7 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-4 col-lg-4 col-md-4" th:each="book:${lista}">
-            <div class="thumbnail">
+            <div style="margin-bottom: 30px" class="thumbnail">
                 <img style="width:280px; height:360px;" th:src="${book.urlPhoto}" alt=""/>
                 <div class="caption">
                     <h4 class="pull-right" th:text="${book.price} +' zł'"></h4>

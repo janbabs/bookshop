@@ -14,8 +14,8 @@ import javax.validation.constraints.Pattern;
 public class OrderDTO {
     @Pattern(regexp = "^([0+]48)?\\d{9}$", message = "Niewłaściwy format numeru telefonu")
     private String phonenumber;
+    private String street;
     @Pattern(regexp = "^[0-9]{2}-[0-9]{3}", message = "Nieprawidłowy format kodu pocztowego. XX-XXX")
     private String zipcode;
-    private String street;
     private String city;
 }

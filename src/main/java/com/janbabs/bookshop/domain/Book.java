@@ -22,9 +22,9 @@ public class Book {
     private String author;
     @Column(length = 100)
     private String publisher;
-    @Column(length = 1000)
+    @Column(length = 2000)
     private String description;
-    @Column(length = 100)
+    @Column(length = 200)
     private String urlPhoto;
 
     /**

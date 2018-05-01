@@ -17,7 +17,7 @@
 
 <form class="form-signin" method="post" th:action="@{${#httpServletRequest.requestURI}}" th:object="${orderDTO}">
     <div class="text-center mb-4">
-        <h1 class="h3 mb-3 font-weight-normal">Zamów</h1>
+        <h1 class="h3 mb-3 font-weight-normal">Zamów książkę</h1>
     </div>
 
     <div class="form-label-group">
@@ -26,12 +26,6 @@
         <label for="inputPhonenumber">Numer telefonu</label>
         <span class="label label-danger" th:if="${#fields.hasErrors('phonenumber')}"
               th:errors="${orderDTO.phonenumber}"></span>
-    </div>
-
-    <div class="form-label-group">
-        <input type="text" id="inputcity" class="form-control" th:field="*{city}" placeholder="Miasto" required>
-        <label for="inputcity">Miasto</label>
-        <span class="label label-danger" th:if="${#fields.hasErrors('city')}" th:errors="${orderDTO.city}"></span>
     </div>
 
     <div class="form-label-group">
@@ -46,6 +40,14 @@
         <label for="inputZipcode">Kod pocztowy</label>
         <span class="label label-danger" th:if="${#fields.hasErrors('zipcode')}" th:errors="${orderDTO.zipcode}"></span>
     </div>
+
+    <div class="form-label-group">
+        <input type="text" id="inputcity" class="form-control" th:field="*{city}" placeholder="Miasto" required>
+        <label for="inputcity">Miasto</label>
+        <span class="label label-danger" th:if="${#fields.hasErrors('city')}" th:errors="${orderDTO.city}"></span>
+    </div>
+
+
     <button class="btn btn-lg btn-primary btn-block" type="submit">Złóż zamówienie</button>
 
 </form>

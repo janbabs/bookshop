@@ -22,9 +22,9 @@ public class BookDTO {
     private String author;
     @Size(max = 100, message = "Nazwa wydawnictwa jest zbyt długa")
     private String publisher;
-    @Size(max = 1000, message = "Zbyt długi opis")
+    @Size(max = 2000, message = "Zbyt długi opis")
     private String description;
-    @Size(max = 100, message = "Link url jest zbyt długi")
+    @Size(max = 200, message = "Link url jest zbyt długi")
     private String urlPhoto;
 
     public BookDTO(Book book) {
