@@ -37,10 +37,11 @@
             <td th:text="${user.lastName}"></td>
             <td th:text="${user.email}"></td>
             <td th:text="${user.userType}"></td>
+            <td><a th:href="@{/user/change/{id}(id = ${user.id})}" class="btn btn-success">Edytuj użytkownika</a></td>
             <td><a th:if="${#strings.toString(user.userType) == 'USER'}" th:href="@{/user/promote/{id}(id = ${user.id})}"
-                   class="btn btn-success" id="makeUserAsAdministrator">ADMIN</a></td>
+                   class="btn btn-success">ADMIN</a></td>
             <td><a th:if="${user.login != 'admin'}" th:href="@{/user/delete/{id}(id = ${user.id})}"
-                   class="btn btn-danger" id="removeThisAccount">USUŃ </a></td>
+                   class="btn btn-danger">USUŃ </a></td>
         </tr>
         </tbody>
     </table>

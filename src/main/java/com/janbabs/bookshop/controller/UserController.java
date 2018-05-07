@@ -3,11 +3,13 @@ package com.janbabs.bookshop.controller;
 import com.janbabs.bookshop.domain.userType;
 import com.janbabs.bookshop.service.UserServices;
 import com.janbabs.bookshop.transport.UserDTO;
+import com.janbabs.bookshop.transport.UserEditDTO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.PostUpdate;
 import javax.validation.Valid;
 
 @Controller
@@ -27,7 +29,6 @@ public class UserController {
 
     @PostMapping("/add")
     public String addUser(@ModelAttribute @Valid UserDTO userDTO, BindingResult bindingResult) {
-        userDTO.setUserType(userType.ADMIN);
         if (bindingResult.hasErrors()) {
             return "registry";
         }
@@ -51,6 +52,21 @@ public class UserController {
     @GetMapping("/promote/{id}")
     public String promoteToAdmin(@PathVariable(name = "id") Long id) {
         userServices.promoteToAdmin(id);
+        return "redirect:/user/all";
+    }
+
+    @GetMapping("/change/{id}")
+    public String getEditUserPage(@PathVariable(name = "id") Long id, Model model) {
+        model.addAttribute("userEditDTO", userServices.findUserEditDTOById(id));
+        return "edituser";
+    }
+    @PostMapping("/change/{id}")
+    public String editUser(@ModelAttribute @Valid UserEditDTO userEditDTO,
+                           BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "edituser";
+        }
+        userServices.update(userEditDTO);
         return "redirect:/user/all";
     }
 }

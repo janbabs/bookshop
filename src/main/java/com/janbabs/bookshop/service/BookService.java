@@ -20,7 +20,7 @@ public class BookService {
     }
 
     public List<BookDTO> findAll() {
-        List<Book> books = this.bookRepository.findAll();
+        List<Book> books = bookRepository.findAll();
         List<BookDTO> booksTO = new ArrayList<>();
         for (Book book : books) {
             booksTO.add(new BookDTO(book));
@@ -29,17 +29,15 @@ public class BookService {
     }
 
     public void save(BookDTO bookDTO) {
-        this.bookRepository.save(convertToBook(bookDTO));
+        bookRepository.save(convertToBook(bookDTO));
     }
 
     public void delete(Long id) {
-        this.bookRepository.deleteById(id);
+        bookRepository.deleteById(id);
     }
 
     public BookDTO findOne(Long id) {
-        Optional<Book> bookOptional = this.bookRepository.findById(id);
-        Book book = bookOptional.get();
-
+        Book book = bookRepository.getOne(id);
         BookDTO bookDTO = new BookDTO(book);
         return bookDTO;
     }

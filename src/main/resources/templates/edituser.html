@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Jan Babś">
+
+    <!-- Bootstrap CSS -->
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+    <!--Custom CSS-->
+    <link th:href="@{/css/body.css}" rel="stylesheet"/>
+    <link th:href="@{/css/footer.css}" rel="stylesheet"/>
+    <link th:href="@{/css/floatingtextsignin.css}" rel="stylesheet"/>
+
+    <title th:text="'Edycja użytkownika: ' + ${userEditDTO.login}"></title>
+</head>
+<body>
+<div th:replace="template :: nav"></div>
+
+<form class="form-signin" method="post" th:action="@{/user/change/{id} (id = ${userEditDTO.id})}" th:object="${userEditDTO}">
+    <div class="text-center mb-4">
+        <h1 class="h3 mb-3 font-weight-normal" th:text="'Edytuj użytkownika: ' + ${userEditDTO.login}"></h1>
+    </div>
+    <div class="form-label-group">
+        <input type="email" id="inputEmail" class="form-control" th:field="*{email}" placeholder="Email" required>
+        <label for="inputEmail">Email</label>
+        <span class="label label-danger" th:if="${#fields.hasErrors('email')}" th:errors="${userEditDTO.email}"></span>
+    </div>
+    <div class="form-label-group">
+        <input type="text" id="inputImie" class="form-control" th:field="*{firstName}" placeholder="Imię">
+        <label for="inputImie">Imię</label>
+        <span class="label label-danger" th:if="${#fields.hasErrors('firstName')}"
+              th:errors="${userEditDTO.firstName}"></span>
+    </div>
+    <div class="form-label-group">
+        <input type="text" id="inputNazwisko" class="form-control" th:field="*{lastName}" placeholder="Nazwisko"
+        >
+        <label for="inputNazwisko">Nazwisko</label>
+        <span class="label label-danger" th:if="${#fields.hasErrors('lastName')}" th:errors="${userEditDTO.lastName}"></span>
+    </div>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Edytuj</button>
+</form>
+
+<div th:replace="template :: footer"></div>
+</body>
+</html>

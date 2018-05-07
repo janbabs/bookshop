@@ -41,6 +41,9 @@ public class BookshopSecurityConfiguration extends WebSecurityConfigurerAdapter 
                 .exceptionHandling().accessDeniedPage("/403")
                 .and()
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/");
+        //Konsola H2
+        http.csrf().disable();
+        http.headers().frameOptions().disable();
     }
 
     @Override

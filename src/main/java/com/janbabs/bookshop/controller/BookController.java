@@ -53,7 +53,10 @@ public class BookController {
     }
 
     @PostMapping("change/{id}")
-    public String edutBook(@PathVariable("id") Long id, @ModelAttribute BookDTO bookDTO) {
+    public String editBook(@PathVariable("id") Long id, @ModelAttribute @Valid BookDTO bookDTO, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "editbook";
+        }
         bookService.update(bookDTO);
         return "redirect:/books/{id}";
     }

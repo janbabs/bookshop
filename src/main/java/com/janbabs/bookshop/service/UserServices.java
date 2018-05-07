@@ -4,6 +4,7 @@ import com.janbabs.bookshop.domain.User;
 import com.janbabs.bookshop.domain.userType;
 import com.janbabs.bookshop.repository.UserRepository;
 import com.janbabs.bookshop.transport.UserDTO;
+import com.janbabs.bookshop.transport.UserEditDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -29,8 +30,16 @@ public class UserServices {
         return userRepository.findAll();
     }
 
-    public User findOne(String login) {
+    public User findByLogin(String login) {
         return userRepository.findByLogin(login);
+    }
+
+    public UserDTO findUserDT0ById(Long id) {
+        return new UserDTO(userRepository.getOne(id));
+    }
+
+    public UserEditDTO findUserEditDTOById(Long id) {
+        return new UserEditDTO(userRepository.getOne(id));
     }
 
     public void delete(Long id) {
@@ -60,5 +69,13 @@ public class UserServices {
         if (user == null)
             return false;
         return true;
+    }
+
+    public void update(UserEditDTO userEditDTO) {
+        User user = userRepository.getOne(userEditDTO.getId());
+        user.setEmail(userEditDTO.getEmail());
+        user.setFirstName(userEditDTO.getFirstName());
+        user.setLastName(userEditDTO.getLastName());
+        userRepository.saveAndFlush(user);
     }
 }

@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.Min;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @NoArgsConstructor
@@ -14,7 +15,7 @@ import javax.validation.constraints.Size;
 public class BookDTO {
 
     private Long id;
-    @Size(max = 100, message = "Tytuł ksiązki może być dłuższy niż 100 znaków")
+    @Size(min = 5,max = 100, message = "Tytuł ksiązki może być dłuższy niż 100 znaków i nie krótszy niż 5")
     private String title;
     @Min(value = 1, message = "Cena ksiązki musi być wieksza od 0")
     private Integer price;
