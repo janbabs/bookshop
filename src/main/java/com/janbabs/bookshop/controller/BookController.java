@@ -46,5 +46,21 @@ public class BookController {
         return "redirect:/books";
     }
 
+    @GetMapping("/change/{id}")
+    public String getEditBookPage(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("bookDTO", bookService.findOne(id));
+        return "editbook";
+    }
 
+    @PostMapping("change/{id}")
+    public String edutBook(@PathVariable("id") Long id, @ModelAttribute BookDTO bookDTO) {
+        bookService.update(bookDTO);
+        return "redirect:/books/{id}";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteBook(@PathVariable("id") Long id) {
+        bookService.delete(id);
+        return "redirect:/books";
+    }
 }

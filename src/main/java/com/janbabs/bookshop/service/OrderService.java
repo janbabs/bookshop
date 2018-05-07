@@ -30,7 +30,7 @@ public class OrderService {
         order.setOrderDate(dateSql);
         order.setUser(user);
         order.setBook(book);
-        order.setOrderStatus(orderStatus.PRZYJETE);
+        order.setOrderStatus(orderStatus.PRZYJĘTE);
         order.setPrice(book.getPrice());
         orderRepository.save(order);
     }

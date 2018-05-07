@@ -7,35 +7,20 @@
 
     <!-- Bootstrap CSS -->
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+    <!--Custom CSS-->
     <link th:href="@{/css/body.css}" rel="stylesheet"/>
     <link th:href="@{/css/footer.css}" rel="stylesheet"/>
 
-    <title th:text="${title}">Strona główna</title>
+    <title>Libre</title>
 </head>
 <body>
 <div th:replace="template :: nav"></div>
-<div class="container=fluid">
-    <div class="jumbotron">
-        <div class="col-md-12">
-            <h1 class="display-3"> Hello wwwworld!</h1>
-            <h1 class="display-3"> Hello wwwworld!</h1>
-            <h1 class="display-3"> Hello wwwworld!</h1>
-            <h1 class="display-3"> Hello wwwworld!</h1>
-            <h1 class="display-3"> Hello wwwworld!</h1>
-
-            <h1 class="display-3"> Hello wwwworld!</h1>
-            <h1 class="display-3"> Hello wwwworld!</h1>
-            <h1 class="display-3"> Hello wwwworld!</h1>
-            <h1 class="display-3"> Hello wwwworld!</h1>
-            <h1 class="display-3"> Hello wwwworld!</h1>
-            <h1 class="display-3"> Hello wwwworld!</h1>
-        </div>
+<div class="container">
+    <div style="margin-top: 200px">
+        <h1 class="text-center">Witamy w sklepie z książkami Libre!</h1>
     </div>
 </div>
-<footer class="footer">
-    <div class="container">
-        <span class="text-muted">Place sticky footer content here.</span>
-    </div>
-</footer>
+
+<div th:replace="template :: footer"></div>
 </body>
 </html>

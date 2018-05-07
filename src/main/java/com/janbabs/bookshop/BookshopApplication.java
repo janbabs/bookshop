@@ -113,8 +113,8 @@ public class BookshopApplication {
                     "http://ecsmedia.pl/c/nie-konczaca-sie-historia-b-iext35246351.jpg"));
 
             //Dodawanie przykładowych użytkowników
-            userServices.save(new UserDTO("admin", "password", "imie", "nazwisko", "email@email", userType.ADMIN));
-            userServices.save(new UserDTO("user", "password", "imie2", "nazwisko2", "email2@email", userType.USER));
+            userServices.save(new UserDTO("admin", "password", "", "", "", userType.ADMIN));
+            userServices.save(new UserDTO("user", "password", "imie", "nazwisko", "email@email", userType.USER));
         };
     }
 }

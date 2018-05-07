@@ -7,22 +7,17 @@
 
     <!-- Bootstrap CSS -->
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
-
     <!--Custom CSS-->
     <link th:href="@{/css/footer.css}" rel="stylesheet"/>
     <link th:href="@{/css/floatingtextsignin.css}" rel="stylesheet"/>
 
 
-    <title>Dodaj książkę</title>
+    <title>Edytuj książkę</title>
 </head>
-<body style="margin-bottom: 0px">
+<body>
 <div th:replace="template :: nav"></div>
 
-<form class="form-signin" method="post" th:action="@{/books/add}" th:object="${bookDTO}">
-    <div class="text-center mb-4">
-        <h1 class="h3 mb-3 font-weight-normal">Dodaj książkę</h1>
-    </div>
-
+<form class="form-signin" method="post" th:action="@{/books/change/{id} (id = ${bookDTO.id})}" th:object="${bookDTO}">
     <div class="form-label-group">
         <input type="text" id="inputTitle" class="form-control" th:field="*{title}" placeholder="Tytuł"
                required autofocus>
@@ -55,12 +50,12 @@
         <span class="label label-danger" th:if="${#fields.hasErrors('urlPhoto')}" th:errors="${bookDTO.urlPhoto}"></span>
     </div>
     <div class="form-label-group">
-        <label for="inputDescription">Opis</label>
+        <p>Opis:</p>
         <textarea class="form-control" id="inputDescription" rows="3" th:field="*{description}" placeholder=""></textarea>
         <span class="label label-danger" th:if="${#fields.hasErrors('description')}" th:errors="${bookDTO.description}"></span>
     </div>
 
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Dodaj książkę</button>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Zaktualizuj</button>
 
 </form>
 

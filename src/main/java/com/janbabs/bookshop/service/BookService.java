@@ -50,5 +50,15 @@ public class BookService {
     }
 
 
+    public void update(BookDTO bookDTO) {
+        Book book = bookRepository.findById(bookDTO.getId()).get();
+        book.setAuthor(bookDTO.getAuthor());
+        book.setDescription(bookDTO.getDescription());
+        book.setPrice(bookDTO.getPrice());
+        book.setPublisher(bookDTO.getPublisher());
+        book.setUrlPhoto(bookDTO.getUrlPhoto());
+        book.setTitle(bookDTO.getTitle());
+        bookRepository.saveAndFlush(book);
+    }
 }
 

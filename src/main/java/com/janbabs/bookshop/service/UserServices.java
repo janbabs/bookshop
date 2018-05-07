@@ -38,6 +38,9 @@ public class UserServices {
     }
 
     public void save(UserDTO userDTO) {
+        if (loginExists(userDTO.getLogin())) {
+            return;
+        }
         userRepository.save(this.convertToUser(userDTO));
     }
 
@@ -51,5 +54,11 @@ public class UserServices {
         User user = userOptional.get();
         user.setUserType(userType.ADMIN);
         userRepository.saveAndFlush(user);
+    }
+    public boolean loginExists(String login) {
+        User user = userRepository.findByLogin(login);
+        if (user == null)
+            return false;
+        return true;
     }
 }

@@ -7,6 +7,9 @@
 
     <!-- Bootstrap CSS -->
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+    <!--Custom CSS-->
+    <link th:href="@{/css/body.css}" rel="stylesheet"/>
+    <link th:href="@{/css/footer.css}" rel="stylesheet"/>
     <link th:href="@{/css/floatingtextsignin.css}" rel="stylesheet"/>
 
     <title>Rejestracja</title>
@@ -16,7 +19,6 @@
 
 <form class="form-signin" method="post" th:action="@{/user/add}" th:object="${userDTO}">
     <div class="text-center mb-4">
-        <img class="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
         <h1 class="h3 mb-3 font-weight-normal">Rejestracja</h1>
     </div>
 
@@ -59,5 +61,6 @@
 
 </form>
 
+<div th:replace="template :: footer"></div>
 </body>
 </html>
