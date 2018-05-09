@@ -66,4 +66,14 @@ public class BookController {
         bookService.delete(id);
         return "redirect:/books";
     }
+
+    @GetMapping("/search")
+    public String searchBookByCriteria(@RequestParam(name = "criteria", required = false) String criteria,
+                                       @RequestParam(name = "value") String value, Model model) {
+        if (criteria == null || criteria.isEmpty()) {
+            criteria = "title";
+        }
+        model.addAttribute("lista", bookService.findByCriteria(criteria, value));
+        return "searchbook";
+    }
 }

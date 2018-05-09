@@ -38,8 +38,6 @@ public class BookshopSecurityConfiguration extends WebSecurityConfigurerAdapter 
                 .formLogin().loginPage("/login").usernameParameter("login")
                 .passwordParameter("password").defaultSuccessUrl("/")
                 .and()
-                .exceptionHandling().accessDeniedPage("/403")
-                .and()
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/");
         //Konsola H2
         http.csrf().disable();

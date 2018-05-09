@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Jan Babś">
+
+    <!-- Bootstrap CSS -->
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+    <!--Custom CSS-->
+    <link th:href="@{/css/body.css}" rel="stylesheet"/>
+    <link th:href="@{/css/footer.css}" rel="stylesheet"/>
+
+    <title>Wynik wyszukiwania</title>
+</head>
+<body>
+<div th:replace="template :: nav"></div>
+<div class="container">
+    <h2>Wynik wyszukiwania</h2>
+    <div class="row">
+        <div class="col-sm-4 col-lg-4 col-md-4" th:each="book:${lista}">
+            <div style="margin-top: 30px" class="thumbnail">
+                <img style="width:280px; height:360px;" th:src="${book.urlPhoto}" alt=""/>
+                <div class="caption">
+                    <h4 class="pull-right" th:text="${book.price} +' zł'"></h4>
+                    <h4 th:text="${book.title}"></h4>
+                    <a th:href="@{/books/{id}(id = ${book.id})}" class="btn btn-primary">Szczegóły</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="template :: footer"></div>
+</body>
+</html>

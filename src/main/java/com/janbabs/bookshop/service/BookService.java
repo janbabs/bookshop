@@ -21,11 +21,7 @@ public class BookService {
 
     public List<BookDTO> findAll() {
         List<Book> books = bookRepository.findAll();
-        List<BookDTO> booksTO = new ArrayList<>();
-        for (Book book : books) {
-            booksTO.add(new BookDTO(book));
-        }
-        return booksTO;
+        return this.convertToListBookDto(books);
     }
 
     public void save(BookDTO bookDTO) {
@@ -57,6 +53,26 @@ public class BookService {
         book.setUrlPhoto(bookDTO.getUrlPhoto());
         book.setTitle(bookDTO.getTitle());
         bookRepository.saveAndFlush(book);
+    }
+
+    public List<BookDTO> findByCriteria(String criteria, String value) {
+        if (criteria.equals("title")) {
+            List<Book> booksList = bookRepository.findAllByTitleContainingIgnoreCase(value);
+            return this.convertToListBookDto(booksList);
+        }
+        if (criteria.equals("author")) {
+            List<Book> booksList = bookRepository.findAllByAuthorContainingIgnoreCase(value);
+            return this.convertToListBookDto(booksList);
+        }
+        return new ArrayList<>();
+    }
+
+    private List<BookDTO> convertToListBookDto(List<Book> bookList) {
+        List<BookDTO> booksTO = new ArrayList<>();
+        for (Book book : bookList) {
+            booksTO.add(new BookDTO(book));
+        }
+        return booksTO;
     }
 }
 
