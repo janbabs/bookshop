@@ -44,7 +44,7 @@ public class OrderController {
     @GetMapping("/add/{id}")
     public String getAddOrderPage(Model model, @PathVariable("id") Long bookId) {
         model.addAttribute("orderDTO", new OrderDTO());
-        model.addAttribute("bookDTO", bookService.findOne(bookId));
+        model.addAttribute("book", bookService.findOne(bookId));
         return "addorder";
     }
 

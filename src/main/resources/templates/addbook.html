@@ -18,7 +18,7 @@
 <body style="margin-bottom: 0px">
 <div th:replace="template :: nav"></div>
 
-<form class="form-signin" method="post" th:action="@{/books/add}" th:object="${bookDTO}">
+<form class="form-signin" method="post" th:action="@{/books/add}" th:object="${book}">
     <div class="text-center mb-4">
         <h1 class="h3 mb-3 font-weight-normal">Dodaj książkę</h1>
     </div>
@@ -27,37 +27,37 @@
         <input type="text" id="inputTitle" class="form-control" th:field="*{title}" placeholder="Tytuł"
                required autofocus>
         <label for="inputTitle">Tytuł</label>
-        <span class="label label-danger" th:if="${#fields.hasErrors('title')}" th:errors="${bookDTO.title}"></span>
+        <span class="label label-danger" th:if="${#fields.hasErrors('title')}" th:errors="${book.title}"></span>
     </div>
 
 
     <div class="form-label-group">
         <input type="number" id="inputprice" class="form-control" th:field="*{price}" placeholder="Cena" required>
         <label for="inputprice">Cena</label>
-        <span class="label label-danger" th:if="${#fields.hasErrors('price')}" th:errors="${bookDTO.price}"></span>
+        <span class="label label-danger" th:if="${#fields.hasErrors('price')}" th:errors="${book.price}"></span>
     </div>
 
     <div class="form-label-group">
         <input type="text" id="inputAuthor" class="form-control" th:field="*{author}" placeholder="Autor"
                required>
         <label for="inputAuthor">Autor</label>
-        <span class="label label-danger" th:if="${#fields.hasErrors('author')}" th:errors="${bookDTO.author}"></span>
+        <span class="label label-danger" th:if="${#fields.hasErrors('author')}" th:errors="${book.author}"></span>
     </div>
 
     <div class="form-label-group">
         <input type="text" id="inputPublisher" class="form-control" th:field="*{publisher}" placeholder="Wydawca">
         <label for="inputPublisher">Wydawnictwo</label>
-        <span class="label label-danger" th:if="${#fields.hasErrors('publisher')}" th:errors="${bookDTO.publisher}"></span>
+        <span class="label label-danger" th:if="${#fields.hasErrors('publisher')}" th:errors="${book.publisher}"></span>
     </div>
     <div class="form-label-group">
         <input type="url" id="inputUrlPhoto" class="form-control" th:field="*{urlPhoto}" placeholder="Link do zdjęcia" required>
         <label for="inputUrlPhoto">Link do zdjęcia</label>
-        <span class="label label-danger" th:if="${#fields.hasErrors('urlPhoto')}" th:errors="${bookDTO.urlPhoto}"></span>
+        <span class="label label-danger" th:if="${#fields.hasErrors('urlPhoto')}" th:errors="${book.urlPhoto}"></span>
     </div>
     <div class="form-label-group">
         <label for="inputDescription">Opis</label>
         <textarea class="form-control" id="inputDescription" rows="3" th:field="*{description}" placeholder=""></textarea>
-        <span class="label label-danger" th:if="${#fields.hasErrors('description')}" th:errors="${bookDTO.description}"></span>
+        <span class="label label-danger" th:if="${#fields.hasErrors('description')}" th:errors="${book.description}"></span>
     </div>
 
     <button class="btn btn-lg btn-primary btn-block" type="submit">Dodaj książkę</button>

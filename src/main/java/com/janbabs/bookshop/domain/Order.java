@@ -6,7 +6,9 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -25,9 +27,10 @@ public class Order {
     @JoinColumn(name = "user_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
-    @JoinColumn(name = "book_id")
+    @JoinColumn(name = "orderDetail_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Book book;
+//    private List<OrderDetail> books = new ArrayList<>();
     private Date orderDate;
     @Column(length = 20)
     private String phonenumber;
@@ -35,10 +38,15 @@ public class Order {
     @Enumerated(value = EnumType.STRING)
     private orderStatus orderStatus;
 
-    public Order(Address address, User user, Book book, Date orderDate, String phonenumber, int price, com.janbabs.bookshop.domain.orderStatus orderStatus) {
+    public Order(Address address, User user,
+//                 List<OrderDetail> books
+                 Book book
+            , Date orderDate, String phonenumber, int price, com.janbabs.bookshop.domain.orderStatus orderStatus) {
         this.address = address;
         this.user = user;
         this.book = book;
+//        this.books = books;
+
         this.orderDate = orderDate;
         this.phonenumber = phonenumber;
         this.price = price;

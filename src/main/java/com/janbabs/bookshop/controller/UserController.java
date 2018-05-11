@@ -4,22 +4,19 @@ import com.janbabs.bookshop.domain.userType;
 import com.janbabs.bookshop.service.UserServices;
 import com.janbabs.bookshop.transport.UserDTO;
 import com.janbabs.bookshop.transport.UserEditDTO;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.PostUpdate;
 import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/user")
+@AllArgsConstructor
 public class UserController {
     private final UserServices userServices;
-
-    public UserController(UserServices userServices) {
-        this.userServices = userServices;
-    }
 
     @GetMapping("/add")
     public String getRegistryPage(Model model) {
@@ -45,7 +42,7 @@ public class UserController {
 
     @GetMapping("/delete/{id}")
     public String deleteUser(@PathVariable(name = "id") Long id) {
-        userServices.delete(id);
+        userServices.disableUser(id);
         return  "redirect:/user/all";
     }
 

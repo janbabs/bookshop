@@ -3,21 +3,18 @@ package com.janbabs.bookshop.service;
 import com.janbabs.bookshop.domain.Book;
 import com.janbabs.bookshop.repository.BookRepository;
 import com.janbabs.bookshop.transport.BookDTO;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional
+@AllArgsConstructor
 public class BookService {
     private final BookRepository bookRepository;
-
-    public BookService(BookRepository bookRepository) {
-        this.bookRepository = bookRepository;
-    }
 
     public List<BookDTO> findAll() {
         List<Book> books = bookRepository.findAll();
@@ -38,7 +35,7 @@ public class BookService {
         return bookDTO;
     }
 
-    private Book convertToBook(BookDTO bookDTO) {
+    public Book convertToBook(BookDTO bookDTO) {
         return new Book(bookDTO.getTitle(), bookDTO.getAuthor(),
                 bookDTO.getPrice(), bookDTO.getPublisher(), bookDTO.getDescription(), bookDTO.getUrlPhoto());
     }
@@ -68,11 +65,11 @@ public class BookService {
     }
 
     private List<BookDTO> convertToListBookDto(List<Book> bookList) {
-        List<BookDTO> booksTO = new ArrayList<>();
+        List<BookDTO> bookDTO = new ArrayList<>();
         for (Book book : bookList) {
-            booksTO.add(new BookDTO(book));
+            bookDTO.add(new BookDTO(book));
         }
-        return booksTO;
+        return bookDTO;
     }
 }
 

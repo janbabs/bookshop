@@ -1,5 +1,6 @@
 package com.janbabs.bookshop.service;
 
+import com.janbabs.bookshop.domain.Cart;
 import com.janbabs.bookshop.domain.User;
 import com.janbabs.bookshop.domain.userType;
 import com.janbabs.bookshop.repository.UserRepository;
@@ -42,15 +43,20 @@ public class UserServices {
         return new UserEditDTO(userRepository.getOne(id));
     }
 
-    public void delete(Long id) {
-        userRepository.deleteById(id);
+    //TODO fix disabling of a user
+    public void disableUser(Long id) {
+        User user = userRepository.getOne(id);
+        user.setActive(false);
     }
 
     public void save(UserDTO userDTO) {
         if (loginExists(userDTO.getLogin())) {
             return;
         }
-        userRepository.save(this.convertToUser(userDTO));
+        User user = this.convertToUser(userDTO);
+        Cart cart = new Cart(user);
+        user.setCart(cart);
+        userRepository.save(user);
     }
 
     private User convertToUser(UserDTO userDTO) {

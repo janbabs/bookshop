@@ -26,8 +26,8 @@
             <h5 th:text="'Autor: ' + ${book.author}"></h5>
             <h5 th:text="${book.publisher}"></h5>
             <h5 th:text="'Cena: ' +${book.price} + ' zł'"></h5>
-            <a sec:authorize="hasAuthority('USER')" th:href="@{/order/add/{id}(id = ${book.id})}" class="btn btn-primary">Kup</a>
-            <a sec:authorize="isAnonymous()" th:href="@{/order/add/{id}(id = ${book.id})}" class="btn btn-primary">Kup</a>
+            <a sec:authorize="hasAuthority('USER')" th:href="@{/cart/add/{id}(id = ${book.id})}" class="btn btn-primary">Kup</a>
+            <a sec:authorize="isAnonymous()" th:href="@{/cart/add/{id}(id = ${book.id})}" class="btn btn-primary">Kup</a>
             <a sec:authorize="hasAuthority('ADMIN')" th:href="@{/books/change/{id}(id = ${book.id})}" class="btn btn-primary">Edytuj</a>
             <a sec:authorize="hasAuthority('ADMIN')" th:href="@{/books/delete/{id}(id = ${book.id})}" class="btn btn-danger">Usuń</a>
         </div>

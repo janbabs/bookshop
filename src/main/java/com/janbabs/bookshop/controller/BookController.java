@@ -33,7 +33,7 @@ public class BookController {
 
     @GetMapping("/add")
     public String getAddBook(Model model) {
-        model.addAttribute("bookDTO", new BookDTO());
+        model.addAttribute("book", new BookDTO());
         return "addbook";
     }
 
@@ -48,7 +48,7 @@ public class BookController {
 
     @GetMapping("/change/{id}")
     public String getEditBookPage(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("bookDTO", bookService.findOne(id));
+        model.addAttribute("book", bookService.findOne(id));
         return "editbook";
     }
 

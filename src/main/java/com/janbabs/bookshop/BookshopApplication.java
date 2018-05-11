@@ -3,6 +3,8 @@ package com.janbabs.bookshop;
 import com.janbabs.bookshop.domain.Book;
 import com.janbabs.bookshop.domain.userType;
 import com.janbabs.bookshop.repository.BookRepository;
+import com.janbabs.bookshop.service.BookService;
+import com.janbabs.bookshop.service.CartService;
 import com.janbabs.bookshop.service.UserServices;
 import com.janbabs.bookshop.transport.UserDTO;
 import org.springframework.boot.CommandLineRunner;
@@ -18,7 +20,7 @@ public class BookshopApplication {
     }
 
     @Bean
-    public CommandLineRunner demoData(BookRepository bookRepository, UserServices userServices) {
+    public CommandLineRunner demoData(BookRepository bookRepository, UserServices userServices, CartService cartService, BookService bookService) {
         return args -> {
 
             //Dodawanie przykładowych książek
@@ -114,7 +116,24 @@ public class BookshopApplication {
 
             //Dodawanie przykładowych użytkowników
             userServices.save(new UserDTO("admin", "password", "", "", "", userType.ADMIN));
-            userServices.save(new UserDTO("user", "password", "imie", "nazwisko", "email@email", userType.USER));
+            Long one = (long) 1;
+            cartService.addCartItemToCart(one, bookService.convertToBook(bookService.findOne(one) ),1);
+            cartService.addCartItemToCart(one, bookService.convertToBook(bookService.findOne(one) ),1);
+            cartService.addCartItemToCart(one, bookService.convertToBook(bookService.findOne(one) ),1);
+            cartService.addCartItemToCart(one, bookService.convertToBook(bookService.findOne(one) ),1);
+            cartService.addCartItemToCart(one, bookService.convertToBook(bookService.findOne(one) ),1);
+            cartService.addCartItemToCart(one, bookService.convertToBook(bookService.findOne(one) ),1);
+            cartService.addCartItemToCart(one, bookService.convertToBook(bookService.findOne(one) ),1);
+            cartService.addCartItemToCart(one, bookService.convertToBook(bookService.findOne(one) ),1);
+            cartService.addCartItemToCart(one, bookService.convertToBook(bookService.findOne(one) ),1);
+            cartService.addCartItemToCart(one, bookService.convertToBook(bookService.findOne(one) ),1);
+            cartService.addCartItemToCart(one, bookService.convertToBook(bookService.findOne(one) ),1);
+            cartService.addCartItemToCart(one, bookService.convertToBook(bookService.findOne(one) ),1);
+            cartService.addCartItemToCart(one, bookService.convertToBook(bookService.findOne(one) ),1);
+            cartService.addCartItemToCart(one, bookService.convertToBook(bookService.findOne(one) ),1);
+            cartService.addCartItemToCart(one, bookService.convertToBook(bookService.findOne(one) ),1);
+
+
         };
     }
 }
