@@ -24,11 +24,11 @@ public class User {
     private String email;
     @Enumerated(EnumType.STRING)
     private userType userType;
-    @OneToOne(fetch = FetchType.LAZY,
-    cascade = CascadeType.ALL,
-    mappedBy = "user")
-    private Cart cart;
     private boolean isActive;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cart_id")
+    private Cart cart;
+
 
     public User(String login, String password, String firstName, String lastName, String email, com.janbabs.bookshop.domain.userType userType) {
         this.login = login;
@@ -38,6 +38,7 @@ public class User {
         this.email = email;
         this.userType = userType;
         this.isActive = true;
+        this.cart = new Cart();
     }
 
 

@@ -1,6 +1,5 @@
 package com.janbabs.bookshop.service;
 
-import com.janbabs.bookshop.domain.Cart;
 import com.janbabs.bookshop.domain.User;
 import com.janbabs.bookshop.domain.userType;
 import com.janbabs.bookshop.repository.UserRepository;
@@ -16,14 +15,14 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class UserServices {
+public class UserService {
 
     private final UserRepository userRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public UserServices(UserRepository userRepository) {
+    public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
@@ -54,8 +53,8 @@ public class UserServices {
             return;
         }
         User user = this.convertToUser(userDTO);
-        Cart cart = new Cart(user);
-        user.setCart(cart);
+//        Cart cart = new Cart(user);
+//        user.setCart(cart);
         userRepository.save(user);
     }
 

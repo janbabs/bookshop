@@ -31,6 +31,7 @@ public class BookshopSecurityConfiguration extends WebSecurityConfigurerAdapter 
                 .antMatchers("/books/change/**").hasAuthority("ADMIN")
                 .antMatchers("/user/add").anonymous()
                 .antMatchers("/user/**").hasAuthority("ADMIN")
+                .antMatchers("/cart/**").hasAuthority("USER")
                 .antMatchers("/order/add/**").hasAuthority("USER")
                 .antMatchers("/order/change/**").hasAuthority("ADMIN")
                 .antMatchers("/order/all").authenticated()

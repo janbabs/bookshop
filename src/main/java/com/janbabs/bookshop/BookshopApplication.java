@@ -5,7 +5,7 @@ import com.janbabs.bookshop.domain.userType;
 import com.janbabs.bookshop.repository.BookRepository;
 import com.janbabs.bookshop.service.BookService;
 import com.janbabs.bookshop.service.CartService;
-import com.janbabs.bookshop.service.UserServices;
+import com.janbabs.bookshop.service.UserService;
 import com.janbabs.bookshop.transport.UserDTO;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -20,7 +20,7 @@ public class BookshopApplication {
     }
 
     @Bean
-    public CommandLineRunner demoData(BookRepository bookRepository, UserServices userServices, CartService cartService, BookService bookService) {
+    public CommandLineRunner demoData(BookRepository bookRepository, UserService userService, BookService bookService, CartService cartService) {
         return args -> {
 
             //Dodawanie przykładowych książek
@@ -115,25 +115,8 @@ public class BookshopApplication {
                     "http://ecsmedia.pl/c/nie-konczaca-sie-historia-b-iext35246351.jpg"));
 
             //Dodawanie przykładowych użytkowników
-            userServices.save(new UserDTO("admin", "password", "", "", "", userType.ADMIN));
-            Long one = (long) 1;
-            cartService.addCartItemToCart(one, bookService.convertToBook(bookService.findOne(one) ),1);
-            cartService.addCartItemToCart(one, bookService.convertToBook(bookService.findOne(one) ),1);
-            cartService.addCartItemToCart(one, bookService.convertToBook(bookService.findOne(one) ),1);
-            cartService.addCartItemToCart(one, bookService.convertToBook(bookService.findOne(one) ),1);
-            cartService.addCartItemToCart(one, bookService.convertToBook(bookService.findOne(one) ),1);
-            cartService.addCartItemToCart(one, bookService.convertToBook(bookService.findOne(one) ),1);
-            cartService.addCartItemToCart(one, bookService.convertToBook(bookService.findOne(one) ),1);
-            cartService.addCartItemToCart(one, bookService.convertToBook(bookService.findOne(one) ),1);
-            cartService.addCartItemToCart(one, bookService.convertToBook(bookService.findOne(one) ),1);
-            cartService.addCartItemToCart(one, bookService.convertToBook(bookService.findOne(one) ),1);
-            cartService.addCartItemToCart(one, bookService.convertToBook(bookService.findOne(one) ),1);
-            cartService.addCartItemToCart(one, bookService.convertToBook(bookService.findOne(one) ),1);
-            cartService.addCartItemToCart(one, bookService.convertToBook(bookService.findOne(one) ),1);
-            cartService.addCartItemToCart(one, bookService.convertToBook(bookService.findOne(one) ),1);
-            cartService.addCartItemToCart(one, bookService.convertToBook(bookService.findOne(one) ),1);
-
-
+            userService.save(new UserDTO("admin", "password", "", "", "", userType.ADMIN));
+            userService.save(new UserDTO("user", "password", "Imię", "Nawzisko", "email@email", userType.USER));
         };
     }
 }

@@ -1,7 +1,7 @@
 package com.janbabs.bookshop.controller;
 
 import com.janbabs.bookshop.domain.userType;
-import com.janbabs.bookshop.service.UserServices;
+import com.janbabs.bookshop.service.UserService;
 import com.janbabs.bookshop.transport.UserDTO;
 import com.janbabs.bookshop.transport.UserEditDTO;
 import lombok.AllArgsConstructor;
@@ -16,7 +16,7 @@ import javax.validation.Valid;
 @RequestMapping("/user")
 @AllArgsConstructor
 public class UserController {
-    private final UserServices userServices;
+    private final UserService userService;
 
     @GetMapping("/add")
     public String getRegistryPage(Model model) {
@@ -30,31 +30,31 @@ public class UserController {
             return "registry";
         }
         userDTO.setUserType(userType.USER);
-        userServices.save(userDTO);
+        userService.save(userDTO);
         return "redirect:/login";
     }
 
     @GetMapping("/all")
     public String getUsersPage(Model model){
-        model.addAttribute("users", userServices.findAll());
+        model.addAttribute("users", userService.findAll());
         return "users";
     }
 
     @GetMapping("/delete/{id}")
     public String deleteUser(@PathVariable(name = "id") Long id) {
-        userServices.disableUser(id);
+        userService.disableUser(id);
         return  "redirect:/user/all";
     }
 
     @GetMapping("/promote/{id}")
     public String promoteToAdmin(@PathVariable(name = "id") Long id) {
-        userServices.promoteToAdmin(id);
+        userService.promoteToAdmin(id);
         return "redirect:/user/all";
     }
 
     @GetMapping("/change/{id}")
     public String getEditUserPage(@PathVariable(name = "id") Long id, Model model) {
-        model.addAttribute("userEditDTO", userServices.findUserEditDTOById(id));
+        model.addAttribute("userEditDTO", userService.findUserEditDTOById(id));
         return "edituser";
     }
     @PostMapping("/change/{id}")
@@ -63,7 +63,7 @@ public class UserController {
         if (bindingResult.hasErrors()) {
             return "edituser";
         }
-        userServices.update(userEditDTO);
+        userService.update(userEditDTO);
         return "redirect:/user/all";
     }
 }

@@ -9,28 +9,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@NoArgsConstructor
+@Table
 @Getter
 @Setter
+@NoArgsConstructor
 public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "cart_id")
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
-    @JoinColumn(name = "items_id")
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<CartItem> items = new ArrayList<>();
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<CartItem> cartItems = new ArrayList<>();
 
-    public Cart(User user) {
-        this.user = user;
-    }
-
-    public CartItem findInCartBookById(Long bookId) {
-        for (CartItem cartItem : this.items) {
+    private CartItem findInCartItemByBookId(Long bookId) {
+        for (CartItem cartItem : this.cartItems) {
             if(cartItem.getBook().getId() == bookId) {
                 return cartItem;
             }
@@ -38,42 +30,49 @@ public class Cart {
         return null;
     }
 
-    //TODO fix
-    public void addBookToCart(Book book, int quantity) {
-        if (items == null) {
-            items = new ArrayList<>();
+    public void addBook(Book book, int quantity) {
+        CartItem cartItem = this.findInCartItemByBookId(book.getId());
+
+        if (cartItem == null) {
+            cartItem = new CartItem();
+            cartItem.setQuantity(0);
+            cartItem.setBook(book);
+            this.cartItems.add(cartItem);
+            cartItem.setCart(this);
         }
-        items.add(new CartItem(book, quantity));
-    }
-
-    public void updateBasketItem(Long bookId, int quantity) {
-        CartItem item = this.findInCartBookById(bookId);
-
-        if (item != null){
-            if(quantity <= 0) {
-                this.items.remove(item);
-            } else {
-                item.setQuantity(quantity);
-            }
+        int newQuantity = cartItem.getQuantity() + quantity;
+        if (newQuantity <= 0) {
+            this.cartItems.remove(cartItem);
+        } else {
+            cartItem.setQuantity(newQuantity);
         }
     }
 
     public void removeBookFromCart(Long bookId) {
-        CartItem item = this.findInCartBookById(bookId);
+        CartItem item = this.findInCartItemByBookId(bookId);
         if (item != null) {
-            this.items.remove(item);
+            this.cartItems.remove(item);
         }
     }
-
     public boolean isEmpty() {
-        return this.items.isEmpty();
+        return this.cartItems.isEmpty();
     }
 
     public int getTotalPrice() {
         int total = 0;
-        for (CartItem item: items) {
+        for (CartItem item: cartItems) {
             total += item.getBook().getPrice() * item.getQuantity();
         }
         return total;
     }
+
+    public boolean hasCartItem(Long cartItemId) {
+        for (CartItem cartItem: cartItems) {
+            if(cartItem.getId() == cartItemId) {
+                 return true;
+            }
+        }
+        return false;
+    }
 }
+

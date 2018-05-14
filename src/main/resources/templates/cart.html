@@ -18,20 +18,31 @@
 <div th:replace="template :: nav"></div>
 <div class="container">
     <h2>Koszyk</h2>
+    <p th:text="${cart.id}"></p>
     <table class="table table-hover">
         <thead>
         <tr>
             <th>Tytuł książki</th>
             <th>Cena za sztukę</th>
             <th>Ilość</th>
+            <th></th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="cartItem:${cart}">
-            <td th:text="${cartItem.book.title}"></td>
-            <td th:text="${cartItem.book.price} + ' zł'"></td>
-            <td th:text="${cartItem.quantity} "></td>
-        </tr>
+        <form method="post" th:action="@{/cart/editquantity}" th:object="${cart}">
+            <tr th:each="cartItem:${cart.cartItems}">
+                    <td th:text="${cartItem.book.title}"></td>
+                    <td th:text="${cartItem.book.price} + ' zł'"></td>*
+                    <td>
+                            <input type="number" id="inputQuantity" th:field="*{cartItem.quantity}">
+                    </td>
+                    <td><a th:href="@{/cart/remove/{id} (id = ${cartItem.book.id})}"
+                           class="btn btn-danger">Usuń</a></td>
+            </tr>
+            <button class=" btn btn-md btn-warning" type="submit">Zaktualizuj</button>
+        </form>
+
         </tbody>
     </table>
 </div>
