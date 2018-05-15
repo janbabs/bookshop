@@ -12,14 +12,14 @@
     <link th:href="@{/css/floatingtextsignin.css}" rel="stylesheet"/>
 
 
-    <title>Zamów książkę</title>
+    <title>Załóż zamówienie</title>
 </head>
 <body>
 <div th:replace="template :: nav"></div>
 
 <form class="form-signin" method="post" th:action="@{${#httpServletRequest.requestURI}}" th:object="${orderDTO}">
     <div class="text-center mb-4">
-        <h1 class="h3 mb-3 font-weight-normal">Zamów książkę</h1>
+        <h1 class="h3 mb-3 font-weight-normal">Załóż zamówienie</h1>
     </div>
 
     <div class="form-label-group">
@@ -33,7 +33,7 @@
     <div class="form-label-group">
         <input type="text" id="inputStreet" class="form-control" th:field="*{street}" placeholder="Ulica">
         <label for="inputStreet">Ulica</label>
-        <span class="label label-danger" th:if="${#fields.hasErrors('street')}" th:errors="${order.ulica}"></span>
+        <span class="label label-danger" th:if="${#fields.hasErrors('street')}" th:errors="${orderDTO.street}"></span>
     </div>
 
     <div class="form-label-group">

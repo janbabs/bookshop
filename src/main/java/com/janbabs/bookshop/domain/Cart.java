@@ -18,12 +18,12 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<CartItem> cartItems = new ArrayList<>();
 
     private CartItem findInCartItemByBookId(Long bookId) {
         for (CartItem cartItem : this.cartItems) {
-            if(cartItem.getBook().getId() == bookId) {
+            if(cartItem.getBook().getId().equals(bookId)) {
                 return cartItem;
             }
         }
@@ -67,12 +67,27 @@ public class Cart {
     }
 
     public boolean hasCartItem(Long cartItemId) {
+        return getCartItemById(cartItemId) != null;
+    }
+
+    public CartItem getCartItemById(Long cartItemId) {
         for (CartItem cartItem: cartItems) {
-            if(cartItem.getId() == cartItemId) {
-                 return true;
+            if(cartItem.getId().equals(cartItemId)) {
+                return cartItem;
             }
         }
-        return false;
+        return null;
+    }
+
+    public void editCartItemQuantity(Long cartItemId, int quantity) {
+        CartItem cartItem = this.getCartItemById(cartItemId);
+        quantity+=cartItem.getQuantity();
+        if (quantity <= 0) {
+            removeBookFromCart(cartItem.getBook().getId());
+        }
+        else {
+            cartItem.setQuantity(quantity);
+        }
     }
 }
 

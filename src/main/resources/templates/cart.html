@@ -18,7 +18,6 @@
 <div th:replace="template :: nav"></div>
 <div class="container">
     <h2>Koszyk</h2>
-    <p th:text="${cart.id}"></p>
     <table class="table table-hover">
         <thead>
         <tr>
@@ -26,25 +25,28 @@
             <th>Cena za sztukę</th>
             <th>Ilość</th>
             <th></th>
-            <th></th>
         </tr>
         </thead>
         <tbody>
-        <form method="post" th:action="@{/cart/editquantity}" th:object="${cart}">
             <tr th:each="cartItem:${cart.cartItems}">
                     <td th:text="${cartItem.book.title}"></td>
-                    <td th:text="${cartItem.book.price} + ' zł'"></td>*
+                    <td th:text="${cartItem.book.price} + ' zł'"></td>
                     <td>
-                            <input type="number" id="inputQuantity" th:field="*{cartItem.quantity}">
+                            <a th:href="@{/cart/addOne/{id} (id = ${cartItem.id})}">
+                                <img th:src="@{/png/plus.png}"/>
+                            </a>
+                            <span th:text="${cartItem.quantity}"></span>
+                        <a th:href="@{/cart/deleteOne/{id} (id = ${cartItem.id})}">
+                                <img th:src="@{/png/minus.png}"/>
+                            </a>
                     </td>
                     <td><a th:href="@{/cart/remove/{id} (id = ${cartItem.book.id})}"
                            class="btn btn-danger">Usuń</a></td>
             </tr>
-            <button class=" btn btn-md btn-warning" type="submit">Zaktualizuj</button>
-        </form>
-
         </tbody>
     </table>
+    <p th:text="'Całkowita cena: ' + ${price} + ' zł'"> </p>
+    <a th:href="@{/order/make}"><span class="btn btn-md btn-primary">Złóż zamówienie!</span></a>
 </div>
 
 <div th:replace="template :: footer"></div>

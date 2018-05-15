@@ -2,7 +2,6 @@ package com.janbabs.bookshop.controller;
 
 import com.janbabs.bookshop.domain.Book;
 import com.janbabs.bookshop.domain.Cart;
-import com.janbabs.bookshop.domain.CartItem;
 import com.janbabs.bookshop.repository.BookRepository;
 import com.janbabs.bookshop.service.CartService;
 import lombok.AllArgsConstructor;
@@ -22,7 +21,9 @@ public class CartController {
     @GetMapping
     public String getCartPage(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        model.addAttribute("cart", cartService.getCartByUserLogin(auth.getName()));
+        Cart cart = cartService.getCartByUserLogin(auth.getName());
+        model.addAttribute("cart", cart);
+        model.addAttribute("price", cart.getTotalPrice());
         return "cart";
     }
 
@@ -37,7 +38,7 @@ public class CartController {
             Cart cart = cartService.getCartByUserLogin(auth.getName());
             cartService.addBook(cart.getId(),book, 1);
         }
-        return "redirect:/cart";
+        return "redirect:/book";
     }
 
     @GetMapping("/remove/{bookId}")
@@ -48,8 +49,19 @@ public class CartController {
         return "redirect:/cart";
     }
 
-    @PostMapping("/editquantity")
-    public String editquantity(@ModelAttribute Cart cart) {
+    @GetMapping("/addOne/{cartItemId}")
+    public String addOneQuantity(@PathVariable(name = "cartItemId") Long cartItemId) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Cart cart = cartService.getCartByUserLogin(auth.getName());
+        cartService.editQuantity(cart.getId(), cartItemId, 1);
+        return "redirect:/cart";
+    }
+
+    @GetMapping("/deleteOne/{cartItemId}")
+    public String deleteOneQuantity(@PathVariable(name = "cartItemId") Long cartItemId) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Cart cart = cartService.getCartByUserLogin(auth.getName());
+        cartService.editQuantity(cart.getId(), cartItemId, -1);
         return "redirect:/cart";
     }
 }

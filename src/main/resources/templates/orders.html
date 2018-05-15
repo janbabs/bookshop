@@ -34,7 +34,7 @@
         <tr th:each="order:${orderlist}">
             <td th:text="${order.id}"></td>
             <td th:text="${#strings.toString(order.orderStatus)}"></td>
-            <td th:text="${order.price} + ' zł'"></td>
+            <td th:text="${order.totalPrice} + ' zł'"></td>
             <td sec:authorize="hasAuthority('ADMIN')" th:text="${order.user.login}"></td>
             <td><a th:href="@{/order/{id}(id = ${order.id})}"
                    class="btn btn-success">Szczegóły</a></td>

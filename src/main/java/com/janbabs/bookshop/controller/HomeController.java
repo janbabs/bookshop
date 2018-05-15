@@ -23,8 +23,8 @@ public class HomeController {
         return "login";
     }
 
-    @GetMapping("/403")
-    public String getErrorPage() {
-        return "error";
-    }
+//    @GetMapping("/403")
+//    public String getErrorPage() {
+//        return "error";
+//    }
 }

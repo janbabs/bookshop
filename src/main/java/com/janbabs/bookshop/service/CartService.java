@@ -47,4 +47,10 @@ public class CartService {
     public int getCartTotalPrice(Long cartId) {
         return getOne(cartId).getTotalPrice();
     }
+
+    public void editQuantity(Long cartId, Long cartItemId, int quantity) {
+        Cart cart = cartRepository.getOne(cartId);
+        cart.editCartItemQuantity(cartItemId, quantity);
+        cartRepository.saveAndFlush(cart);
+    }
 }
