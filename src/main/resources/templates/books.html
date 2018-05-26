@@ -15,7 +15,7 @@
 </head>
 <body>
 <div th:replace="template :: nav"></div>
-<div class="container">
+<div class="container" th:if="${lista.size()}!=0">
     <div class="row">
         <div class="col-sm-4 col-lg-4 col-md-4" th:each="book:${lista}">
             <div style="margin-top: 30px" class="thumbnail">
@@ -29,7 +29,9 @@
         </div>
     </div>
 </div>
-
+<div class="container text-center" th:if="${lista.size()}==0">
+    <h1> Aktualnie nie posiadamy żadnych książek na sprzedaż.</h1>
+</div>
 <div th:replace="template :: footer"></div>
 </body>
 </html>

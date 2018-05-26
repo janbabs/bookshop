@@ -1,10 +1,13 @@
 package com.janbabs.bookshop.controller;
 
+import com.janbabs.bookshop.domain.User;
 import com.janbabs.bookshop.domain.userType;
 import com.janbabs.bookshop.service.UserService;
 import com.janbabs.bookshop.transport.UserDTO;
 import com.janbabs.bookshop.transport.UserEditDTO;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -53,17 +56,34 @@ public class UserController {
     }
 
     @GetMapping("/change/{id}")
-    public String getEditUserPage(@PathVariable(name = "id") Long id, Model model) {
+    public String getEditUserPageById(@PathVariable(name = "id") Long id, Model model) {
         model.addAttribute("userEditDTO", userService.findUserEditDTOById(id));
         return "edituser";
     }
     @PostMapping("/change/{id}")
-    public String editUser(@ModelAttribute @Valid UserEditDTO userEditDTO,
+    public String editUserById(@ModelAttribute @Valid UserEditDTO userEditDTO,
                            BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "edituser";
         }
         userService.update(userEditDTO);
         return "redirect:/user/all";
+    }
+
+    @GetMapping("/change")
+    public String getEditUserPage(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findByLogin(auth.getName());
+        model.addAttribute("userEditDTO", userService.findUserEditDTOById(user.getId()));
+        return "edituser";
+    }
+    @PostMapping("/change")
+    public String editUserBy(@ModelAttribute @Valid UserEditDTO userEditDTO,
+                           BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "edituser";
+        }
+        userService.update(userEditDTO);
+        return "redirect:/";
     }
 }

@@ -1,5 +1,7 @@
 package com.janbabs.bookshop.controller;
 
+import com.janbabs.bookshop.domain.Book;
+import com.janbabs.bookshop.exceptions.ResourceNotFoundException;
 import com.janbabs.bookshop.service.BookService;
 import com.janbabs.bookshop.transport.BookDTO;
 import org.springframework.stereotype.Controller;
@@ -27,7 +29,9 @@ public class BookController {
 
     @GetMapping("/{id}")
     public String getBookByID(Model model, @PathVariable("id") Long id) {
-        model.addAttribute("book", bookService.findOne(id));
+        BookDTO bookDTO = bookService.findOne(id);
+        if (bookDTO == null) throw new ResourceNotFoundException();
+        model.addAttribute("book", bookDTO);
         return "book";
     }
 

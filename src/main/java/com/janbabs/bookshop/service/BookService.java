@@ -1,14 +1,17 @@
 package com.janbabs.bookshop.service;
 
 import com.janbabs.bookshop.domain.Book;
+import com.janbabs.bookshop.exceptions.ResourceNotFoundException;
 import com.janbabs.bookshop.repository.BookRepository;
 import com.janbabs.bookshop.transport.BookDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -30,8 +33,10 @@ public class BookService {
     }
 
     public BookDTO findOne(Long id) {
-        Book book = bookRepository.getOne(id);
-        BookDTO bookDTO = new BookDTO(book);
+        Optional<Book> optionalBook = bookRepository.findById(id);
+        if (!optionalBook.isPresent())
+            throw new ResourceNotFoundException("Przedmiot o id: " + id + " nie istnieje!");
+        BookDTO bookDTO = new BookDTO(optionalBook.get());
         return bookDTO;
     }
 

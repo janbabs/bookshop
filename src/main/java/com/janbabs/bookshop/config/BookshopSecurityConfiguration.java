@@ -8,6 +8,8 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
@@ -30,6 +32,7 @@ public class BookshopSecurityConfiguration extends WebSecurityConfigurerAdapter 
                 .antMatchers("/books/disableUser/**").hasAuthority("ADMIN")
                 .antMatchers("/books/change/**").hasAuthority("ADMIN")
                 .antMatchers("/user/add").anonymous()
+                .antMatchers("/user/change").hasAuthority("USER")
                 .antMatchers("/user/**").hasAuthority("ADMIN")
                 .antMatchers("/cart/**").hasAuthority("USER")
                 .antMatchers("/order/add").hasAuthority("USER")
@@ -40,7 +43,10 @@ public class BookshopSecurityConfiguration extends WebSecurityConfigurerAdapter 
                 .formLogin().loginPage("/login").usernameParameter("login")
                 .passwordParameter("password").defaultSuccessUrl("/")
                 .and()
-                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/");
+                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/")
+                .and()
+                .exceptionHandling().accessDeniedPage("/403")
+        ;
         //Konsola H2
         http.csrf().disable();
         http.headers().frameOptions().disable();

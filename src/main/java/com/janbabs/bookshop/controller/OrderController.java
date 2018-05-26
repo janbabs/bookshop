@@ -36,7 +36,7 @@ public class OrderController {
         String currentUserName = auth.getName();
         Order order = orderService.findById(id);
         if (!order.getUser().getLogin().equals(currentUserName)) {
-            return "error111";
+            return "error";
         }
         model.addAttribute("order", order);
         return "order";
@@ -71,7 +71,7 @@ public class OrderController {
         String login = auth.getName();
         Cart cart = cartService.getCartByUserLogin(login);
         orderService.save(orderDTO, login, cart);
-        return "redirect:/order/all";
+        return "redirect:/order_completed";
     }
 
     @GetMapping("/change/{id}")

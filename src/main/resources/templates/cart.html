@@ -16,7 +16,7 @@
 </head>
 <body>
 <div th:replace="template :: nav"></div>
-<div class="container">
+<div class="container" th:if="!${cart.isEmpty()}">
     <h2>Koszyk</h2>
     <table class="table table-hover">
         <thead>
@@ -47,8 +47,11 @@
     </table>
     <p th:text="'Całkowita cena: ' + ${price} + ' zł'"> </p>
     <a th:href="@{/order/make}"><span class="btn btn-md btn-primary">Złóż zamówienie!</span></a>
+    <a th:href="@{/cart/deleteAll}"><span class="btn btn-md btn-danger">Wyczyść koszyk!</span></a>
 </div>
-
+<div class="container text-center" th:if="${cart.isEmpty()}">
+    <h1>Twój koszyk jest pusty!</h1>
+</div>
 <div th:replace="template :: footer"></div>
 </body>
 </html>

@@ -29,6 +29,7 @@ public class OrderService {
         order.setOrderStatus(orderStatus.PRZYJETE);
         order.setTotalPrice(cart.getTotalPrice());
         order.setOrderItems(cart.getCartItems());
+        cart.deleteAllItems();
         orderRepository.save(order);
     }
 

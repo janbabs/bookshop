@@ -89,5 +89,9 @@ public class Cart {
             cartItem.setQuantity(quantity);
         }
     }
+
+    public void deleteAllItems() {
+        cartItems.clear();
+    }
 }
 

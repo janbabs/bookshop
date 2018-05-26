@@ -2,6 +2,7 @@ package com.janbabs.bookshop.service;
 
 import com.janbabs.bookshop.domain.User;
 import com.janbabs.bookshop.domain.userType;
+import com.janbabs.bookshop.exceptions.ResourceNotFoundException;
 import com.janbabs.bookshop.repository.UserRepository;
 import com.janbabs.bookshop.transport.UserDTO;
 import com.janbabs.bookshop.transport.UserEditDTO;
@@ -10,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,8 +28,13 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public List<User> findAll() {
-        return userRepository.findAll();
+    public List<UserDTO> findAll() {
+        List <User> userList = userRepository.findAll();
+        List <UserDTO> userDTOS= new ArrayList<>();
+        for (User user: userList) {
+            userDTOS.add(new UserDTO(user));
+        }
+        return userDTOS;
     }
 
     public User findByLogin(String login) {
@@ -53,8 +60,6 @@ public class UserService {
             return;
         }
         User user = this.convertToUser(userDTO);
-//        Cart cart = new Cart(user);
-//        user.setCart(cart);
         userRepository.save(user);
     }
 
@@ -65,6 +70,7 @@ public class UserService {
 
     public void promoteToAdmin(Long id) {
         Optional<User> userOptional = userRepository.findById(id);
+        if (!userOptional.isPresent()) throw new ResourceNotFoundException("Użytkownik nie istnieje");
         User user = userOptional.get();
         user.setUserType(userType.ADMIN);
         userRepository.saveAndFlush(user);
@@ -77,7 +83,9 @@ public class UserService {
     }
 
     public void update(UserEditDTO userEditDTO) {
-        User user = userRepository.getOne(userEditDTO.getId());
+        Optional<User> optionalUser = userRepository.findById(userEditDTO.getId());
+        if (!optionalUser.isPresent()) throw new ResourceNotFoundException("Użytkownik o podanych id nie istnieje");
+        User user = optionalUser.get();
         user.setEmail(userEditDTO.getEmail());
         user.setFirstName(userEditDTO.getFirstName());
         user.setLastName(userEditDTO.getLastName());
