@@ -2,8 +2,10 @@ package com.janbabs.bookshop.controller;
 
 import com.janbabs.bookshop.domain.Cart;
 import com.janbabs.bookshop.domain.Order;
+import com.janbabs.bookshop.exceptions.ResourceNotFoundException;
 import com.janbabs.bookshop.service.CartService;
 import com.janbabs.bookshop.service.OrderService;
+import com.janbabs.bookshop.service.UserService;
 import com.janbabs.bookshop.transport.OrderDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -21,6 +23,7 @@ import javax.validation.Valid;
 public class OrderController {
     private final OrderService orderService;
     private final CartService cartService;
+    private final UserService userService;
 
     @GetMapping("/all")
     public String getOrdersPage(Model model) {
@@ -35,9 +38,8 @@ public class OrderController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String currentUserName = auth.getName();
         Order order = orderService.findById(id);
-        if (!order.getUser().getLogin().equals(currentUserName)) {
-            return "error";
-        }
+        if (!order.getUser().getLogin().equals(currentUserName) && !userService.isUserAdmin(currentUserName))
+            throw new ResourceNotFoundException("Brak uprawnień do wglądu tego zamówienia!");
         model.addAttribute("order", order);
         return "order";
     }

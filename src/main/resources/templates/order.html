@@ -17,7 +17,7 @@
 <body>
 <div th:replace="template :: nav"></div>
 <div class="container jumbotron">
-    <h1 class="booktitle" th:utext="'Szczegóły zamówienia książki: ' + '<br />' + ${order.book.title}"></h1>
+    <h1 class="booktitle" th:utext="'Szczegóły zamówienia: '"></h1>
     <div class="row">
         <div class="col-sm-6">
             <div class="row">
@@ -110,22 +110,51 @@
             </div>
         </div>
 
-
         <div class="col-sm-6">
             <div class="row">
                 <div class="col-sm-6">
-                    <h3 class="fieldName">Należność:</h3>
+                    <h3 class="fieldName">Data złożenia:</h3>
                 </div>
                 <div class="col-sm-6">
-                    <h4 class="fieldValue" th:text="${order.book.price} + ' zł'"></h4>
+                    <h4 class="fieldValue" th:text="${#dates.format(order.orderDate, 'dd-MM-yyyy HH:mm')}"></h4>
                 </div>
             </div>
         </div>
 
-
+        <div class="container" style="padding-top: 30px">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>Książka</th>
+                    <th></th>
+                    <th>Cena</th>
+                    <th>Ilość</th>
+                    <th>Razem</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="orderItem :${order.orderItems}">
+                    <td><img style="width: 105px; height: 135px" th:src="${orderItem.book.urlPhoto}"></td>
+                    <td th:text="${orderItem.book.title}"></td>
+                    <td th:text="${orderItem.book.price} + ' zł'"></td>
+                    <td th:text="${orderItem.quantity}"></td>
+                    <td th:text="${orderItem.quantity * orderItem.book.price} + ' zł'"></td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="col-sm-6">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h3 class="fieldName">Należność:</h3>
+                    </div>
+                    <div class="col-sm-6">
+                        <h4 class="fieldValue" th:text="${order.totalPrice} + ' zł'"></h4>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-
 <div th:replace="template :: footer"></div>
 </body>
 </html>

@@ -1,12 +1,14 @@
 package com.janbabs.bookshop.service;
 
 import com.janbabs.bookshop.domain.*;
+import com.janbabs.bookshop.exceptions.ResourceNotFoundException;
 import com.janbabs.bookshop.repository.OrderRepository;
 import com.janbabs.bookshop.repository.UserRepository;
 import com.janbabs.bookshop.transport.OrderDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
@@ -64,6 +66,8 @@ public class OrderService {
     }
 
     public Order findById(Long id) {
-        return orderRepository.getOne(id);
+        Optional<Order> optionalOrder = orderRepository.findById(id);
+        if (!optionalOrder.isPresent()) throw new ResourceNotFoundException("Zamówienie o zadanym id nie istnieje!");
+        return optionalOrder.get();
     }
 }

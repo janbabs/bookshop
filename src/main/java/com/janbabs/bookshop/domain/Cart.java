@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,12 +59,14 @@ public class Cart {
         return this.cartItems.isEmpty();
     }
 
-    public int getTotalPrice() {
-        int total = 0;
+    public BigDecimal getTotalPrice() {
+        BigDecimal totalCost = BigDecimal.ZERO;
+        BigDecimal itemCost;
         for (CartItem item: cartItems) {
-            total += item.getBook().getPrice() * item.getQuantity();
+            itemCost = item.getBook().getPrice().multiply(new BigDecimal(item.getQuantity()));
+            totalCost = totalCost.add(itemCost);
         }
-        return total;
+        return totalCost;
     }
 
     public boolean hasCartItem(Long cartItemId) {

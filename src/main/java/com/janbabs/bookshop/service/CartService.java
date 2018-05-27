@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
 import java.util.Optional;
 
 @Service
@@ -42,7 +43,7 @@ public class CartService {
         return cartRepository.getOne(cartId);
     }
 
-    public int getCartTotalPrice(Long cartId) {
+    public BigDecimal getCartTotalPrice(Long cartId) {
         return getOne(cartId).getTotalPrice();
     }
 

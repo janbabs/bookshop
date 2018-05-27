@@ -6,6 +6,7 @@ import lombok.Setter;
 import sun.security.util.Length;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 @NoArgsConstructor
@@ -17,7 +18,7 @@ public class Book {
     private Long id;
     @Column(length = 100)
     private String title;
-    private Integer price;
+    private BigDecimal price;
     @Column(length = 100)
     private String author;
     @Column(length = 100)
@@ -37,7 +38,7 @@ public class Book {
      * @param description   opis
      * @param urlPhoto  link url do zdjęcia okładki
      */
-    public Book(String title, String author, Integer price, String publisher, String description, String urlPhoto) {
+    public Book(String title, String author, BigDecimal price, String publisher, String description, String urlPhoto) {
         this.title = title;
         this.author = author;
         this.price = price;

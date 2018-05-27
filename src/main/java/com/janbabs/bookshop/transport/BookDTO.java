@@ -8,6 +8,7 @@ import lombok.Setter;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.math.BigDecimal;
 
 @NoArgsConstructor
 @Getter
@@ -18,7 +19,7 @@ public class BookDTO {
     @Size(min = 5,max = 100, message = "Tytuł ksiązki może być dłuższy niż 100 znaków i nie krótszy niż 5")
     private String title;
     @Min(value = 1, message = "Cena ksiązki musi być wieksza od 0")
-    private Integer price;
+    private BigDecimal price;
     @Size(max = 100, message = "Nazwa autora zbyt długa")
     private String author;
     @Size(max = 100, message = "Nazwa wydawnictwa jest zbyt długa")

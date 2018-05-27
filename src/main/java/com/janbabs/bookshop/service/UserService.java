@@ -75,6 +75,11 @@ public class UserService {
         user.setUserType(userType.ADMIN);
         userRepository.saveAndFlush(user);
     }
+
+    public boolean isUserAdmin(String login) {
+        return userRepository.findByLogin(login).getUserType() == userType.ADMIN;
+    }
+
     public boolean loginExists(String login) {
         User user = userRepository.findByLogin(login);
         if (user == null)

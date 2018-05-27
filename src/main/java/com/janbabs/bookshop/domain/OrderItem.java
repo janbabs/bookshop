@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 @Table
@@ -32,6 +33,4 @@ public class OrderItem {
         this.book = cartItem.getBook();
         this.quantity = cartItem.getQuantity();
     }
-
-
 }
