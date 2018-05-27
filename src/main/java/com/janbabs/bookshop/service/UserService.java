@@ -49,12 +49,6 @@ public class UserService {
         return new UserEditDTO(userRepository.getOne(id));
     }
 
-    //TODO fix disabling of a user
-    public void disableUser(Long id) {
-        User user = userRepository.getOne(id);
-        user.setActive(false);
-    }
-
     public void save(UserDTO userDTO) {
         if (loginExists(userDTO.getLogin())) {
             return;

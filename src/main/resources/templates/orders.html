@@ -38,10 +38,10 @@
             <td sec:authorize="hasAuthority('ADMIN')" th:text="${order.user.login}"></td>
             <td><a th:href="@{/order/{id}(id = ${order.id})}"
                    class="btn btn-success">Szczegóły</a></td>
-            <td sec:authorize="hasAuthority('ADMIN')" th:if="${#strings.toString(order.orderStatus)=='PRZYJĘTE'}"><a
+            <td sec:authorize="hasAuthority('ADMIN')" th:if="${#strings.toString(order.orderStatus)=='PRZYJETE'}"><a
                     th:href="@{/order/change/{id}(id = ${order.id},status = 'zrealizowane')}" class="btn btn-success">Zrealizowane </a>
             </td>
-            <td sec:authorize="hasAuthority('ADMIN')" th:if="${#strings.toString(order.orderStatus)=='PRZYJĘTE'}"><a
+            <td sec:authorize="hasAuthority('ADMIN')" th:if="${#strings.toString(order.orderStatus)=='PRZYJETE'}"><a
                     th:href="@{/order/change/{id} (id = ${order.id},status = 'anuluj')}"
                     class="btn btn-danger">Anuluj </a></td>
         </tr>

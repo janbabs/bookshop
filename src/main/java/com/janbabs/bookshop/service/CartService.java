@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -33,6 +34,16 @@ public class CartService {
         Cart cart = getOne(cartId);
         cart.removeBookFromCart(bookId);
         cartRepository.saveAndFlush(cart);
+    }
+
+    public void removeFromAllCart(Long bookId) {
+        List<Cart> cartList = cartRepository.findAll();
+        for (Cart cart :
+                cartList) {
+            cart.removeBookFromCart(bookId);
+            cartRepository.saveAndFlush(cart);
+
+        }
     }
 
     public Cart getCartByUserLogin(String userLogin) {

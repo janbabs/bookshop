@@ -43,12 +43,6 @@ public class UserController {
         return "users";
     }
 
-    @GetMapping("/delete/{id}")
-    public String deleteUser(@PathVariable(name = "id") Long id) {
-        userService.disableUser(id);
-        return  "redirect:/user/all";
-    }
-
     @GetMapping("/promote/{id}")
     public String promoteToAdmin(@PathVariable(name = "id") Long id) {
         userService.promoteToAdmin(id);

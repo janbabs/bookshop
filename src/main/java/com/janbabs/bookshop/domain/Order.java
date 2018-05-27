@@ -19,6 +19,7 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(length = 12)
     private String phonenumber;
     @JoinColumn(name = "address_id")
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

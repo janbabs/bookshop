@@ -1,13 +1,10 @@
 package com.janbabs.bookshop.domain;
 
-import com.janbabs.bookshop.domain.Book;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 
 @Entity
 @Table
@@ -19,9 +16,9 @@ public class OrderItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "book_id")
-    private Book book;
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "bookOrder_id")
+    private BookOrder bookOrder;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id")
@@ -30,7 +27,7 @@ public class OrderItem {
     private int quantity;
 
     public OrderItem(CartItem cartItem) {
-        this.book = cartItem.getBook();
+        this.bookOrder = new BookOrder(cartItem.getBook());
         this.quantity = cartItem.getQuantity();
     }
 }

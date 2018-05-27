@@ -57,10 +57,7 @@ public class OrderController {
 
     @GetMapping("/add")
     public String getAddOrderPage(Model model) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String login = auth.getName();
         model.addAttribute("orderDTO", new OrderDTO());
-//        model.addAttribute("cart", cartService.getCartByUserLogin(login));
         return "addorder";
     }
 

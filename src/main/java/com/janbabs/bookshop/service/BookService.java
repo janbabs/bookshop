@@ -18,6 +18,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class BookService {
     private final BookRepository bookRepository;
+    private final CartService cartService;
 
     public List<BookDTO> findAll() {
         List<Book> books = bookRepository.findAll();
@@ -29,6 +30,7 @@ public class BookService {
     }
 
     public void delete(Long id) {
+        cartService.removeFromAllCart(id);
         bookRepository.deleteById(id);
     }
 
@@ -48,6 +50,7 @@ public class BookService {
 
     public void update(BookDTO bookDTO) {
         Book book = bookRepository.findById(bookDTO.getId()).get();
+        cartService.removeFromAllCart(book.getId());
         book.setAuthor(bookDTO.getAuthor());
         book.setDescription(bookDTO.getDescription());
         book.setPrice(bookDTO.getPrice());

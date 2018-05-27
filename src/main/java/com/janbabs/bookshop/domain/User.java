@@ -16,15 +16,18 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(unique = true)
+    @Column(unique = true, length = 20)
     private String login;
+    @Column(length = 60)
     private String password;
+    @Column(length = 20)
     private String firstName;
+    @Column(length = 20)
     private String lastName;
+    @Column(length = 50)
     private String email;
     @Enumerated(EnumType.STRING)
     private userType userType;
-    private boolean isActive;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "cart_id")
     private Cart cart;
@@ -37,7 +40,6 @@ public class User {
         this.lastName = lastName;
         this.email = email;
         this.userType = userType;
-        this.isActive = true;
         this.cart = new Cart();
     }
 
