@@ -12,12 +12,12 @@
     <link th:href="@{/css/footer.css}" rel="stylesheet"/>
     <link th:href="@{/css/floatingtextsignin.css}" rel="stylesheet"/>
 
-    <title th:text="'Edycja użytkownika: ' + ${userEditDTO.login}"></title>
+    <title> Edytuj swoje dane</title>
 </head>
 <body>
 <div th:replace="template :: nav"></div>
 
-<form class="form-signin" method="post" th:action="@{/user/change/{id} (id = ${userEditDTO.id})}" th:object="${userEditDTO}">
+<form class="form-signin" method="post" th:action="@{/user/change}" th:object="${userEditDTO}" th:value="${userEditDTO.id}">
     <div class="text-center mb-4">
         <h1 class="h3 mb-3 font-weight-normal" th:text="'Edytuj użytkownika: ' + ${userEditDTO.login}"></h1>
     </div>
@@ -41,6 +41,10 @@
         <label for="inputNazwisko">Nazwisko</label>
         <span class="label label-danger" th:if="${#fields.hasErrors('lastName')}" th:errors="${userEditDTO.lastName}"></span>
     </div>
+
+    <input type="hidden" th:field="*{id}">
+    <input type="hidden" th:field="*{login}">
+
 
     <button class="btn btn-lg btn-primary btn-block" type="submit">Edytuj</button>
 </form>

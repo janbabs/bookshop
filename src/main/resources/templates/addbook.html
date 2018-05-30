@@ -12,7 +12,6 @@
     <link th:href="@{/css/footer.css}" rel="stylesheet"/>
     <link th:href="@{/css/floatingtextsignin.css}" rel="stylesheet"/>
 
-
     <title>Dodaj książkę</title>
 </head>
 <body style="margin-bottom: 0px">
@@ -30,10 +29,9 @@
         <span class="label label-danger" th:if="${#fields.hasErrors('title')}" th:errors="${book.title}"></span>
     </div>
 
-
     <div class="form-label-group">
-        <input type="number" id="inputprice" class="form-control" th:field="*{price}" placeholder="Cena" required>
-        <label for="inputprice">Cena</label>
+        <input type="number" min="1" value="0" step="0.01" id="inputPrice" class="form-control" th:field="*{price}" placeholder="Cena" required>
+        <label for="inputPrice">Cena</label>
         <span class="label label-danger" th:if="${#fields.hasErrors('price')}" th:errors="${book.price}"></span>
     </div>
 
@@ -49,21 +47,20 @@
         <label for="inputPublisher">Wydawnictwo</label>
         <span class="label label-danger" th:if="${#fields.hasErrors('publisher')}" th:errors="${book.publisher}"></span>
     </div>
+
     <div class="form-label-group">
         <input type="url" id="inputUrlPhoto" class="form-control" th:field="*{urlPhoto}" placeholder="Link do zdjęcia" required>
         <label for="inputUrlPhoto">Link do zdjęcia</label>
         <span class="label label-danger" th:if="${#fields.hasErrors('urlPhoto')}" th:errors="${book.urlPhoto}"></span>
     </div>
+
     <div class="form-label-group">
-        <label for="inputDescription">Opis</label>
+        <p>Opis:</p>
         <textarea class="form-control" id="inputDescription" rows="3" th:field="*{description}" placeholder=""></textarea>
         <span class="label label-danger" th:if="${#fields.hasErrors('description')}" th:errors="${book.description}"></span>
     </div>
 
     <button class="btn btn-lg btn-primary btn-block" type="submit">Dodaj książkę</button>
-
 </form>
-
-<div th:replace="template :: footer"></div>
 </body>
 </html>

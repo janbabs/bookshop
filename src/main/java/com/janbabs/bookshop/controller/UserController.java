@@ -50,13 +50,13 @@ public class UserController {
     }
 
     @GetMapping("/change/{id}")
-    public String getEditUserPageById(@PathVariable(name = "id") Long id, Model model) {
+    public String getEditUserPageById (@PathVariable(name = "id") Long id, Model model){
         model.addAttribute("userEditDTO", userService.findUserEditDTOById(id));
         return "edituser";
     }
     @PostMapping("/change/{id}")
     public String editUserById(@ModelAttribute @Valid UserEditDTO userEditDTO,
-                           BindingResult bindingResult) {
+            BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "edituser";
         }
@@ -67,16 +67,18 @@ public class UserController {
     @GetMapping("/change")
     public String getEditUserPage(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = userService.findByLogin(auth.getName());
-        model.addAttribute("userEditDTO", userService.findUserEditDTOById(user.getId()));
-        return "edituser";
+        model.addAttribute("userEditDTO", userService.getUserIDTOLogin(auth.getName()));
+        return "editInfo";
     }
     @PostMapping("/change")
     public String editUserBy(@ModelAttribute @Valid UserEditDTO userEditDTO,
-                           BindingResult bindingResult) {
+                             BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "edituser";
+            return "editInfo";
         }
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (!userEditDTO.getLogin().equals(auth.getName()))
+            return "redirect:/403";
         userService.update(userEditDTO);
         return "redirect:/";
     }

@@ -16,6 +16,7 @@
 </head>
 <body>
 <div th:replace="template :: nav"></div>
+
 <div class="container" th:if="${!orderlist.isEmpty()}">
     <h2>Zamówienia</h2>
     <table class="table table-hover">
@@ -48,9 +49,9 @@
         </tbody>
     </table>
 </div>
+
 <div class="container text-center" th:if="${orderlist.isEmpty()}">
     <h1>Brak zamówień!</h1>
 </div>
-<div th:replace="template :: footer"></div>
 </body>
 </html>

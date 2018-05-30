@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="pl" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -17,12 +16,10 @@
 <body>
 <div th:replace="template :: nav"></div>
 
-
-
 <div class="container">
     <div class="col-md-12">
         <div class="text-center">
-            <img class="text-center" src="https://www.popsci.com/sites/popsci.com/files/styles/655_1x_/public/images/2017/11/books.jpg"/>
+            <img th:src="@{/png/ksiazka.png}"/>
         </div>
     </div>
     <div class="col-md-12">
@@ -31,7 +28,5 @@
         </div>
     </div>
 </div>
-
-<div th:replace="template :: footer"></div>
 </body>
 </html>

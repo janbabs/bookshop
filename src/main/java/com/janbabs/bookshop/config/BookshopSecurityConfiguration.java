@@ -8,8 +8,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
@@ -33,6 +31,7 @@ public class BookshopSecurityConfiguration extends WebSecurityConfigurerAdapter 
                 .antMatchers("/books/change/**").hasAuthority("ADMIN")
                 .antMatchers("/user/add").anonymous()
                 .antMatchers("/user/change").hasAuthority("USER")
+                .antMatchers("/user/change/**").hasAuthority("ADMIN")
                 .antMatchers("/user/**").hasAuthority("ADMIN")
                 .antMatchers("/cart/**").hasAuthority("USER")
                 .antMatchers("/order/add").hasAuthority("USER")

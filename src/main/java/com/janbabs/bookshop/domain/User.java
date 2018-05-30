@@ -3,12 +3,10 @@ package com.janbabs.bookshop.domain;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 import javax.persistence.*;
 
 @Entity
-@ToString
 @Getter
 @Setter
 @NoArgsConstructor
@@ -27,13 +25,14 @@ public class User {
     @Column(length = 50)
     private String email;
     @Enumerated(EnumType.STRING)
+    @Column(length = 20)
     private userType userType;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "cart_id")
     private Cart cart;
 
-
-    public User(String login, String password, String firstName, String lastName, String email, com.janbabs.bookshop.domain.userType userType) {
+    public User(String login, String password, String firstName, String lastName,
+                String email, com.janbabs.bookshop.domain.userType userType) {
         this.login = login;
         this.password = password;
         this.firstName = firstName;
@@ -42,6 +41,4 @@ public class User {
         this.userType = userType;
         this.cart = new Cart();
     }
-
-
 }

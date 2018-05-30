@@ -1,6 +1,5 @@
 package com.janbabs.bookshop.controller;
 
-import com.janbabs.bookshop.domain.Book;
 import com.janbabs.bookshop.exceptions.ResourceNotFoundException;
 import com.janbabs.bookshop.service.BookService;
 import com.janbabs.bookshop.transport.BookDTO;
@@ -52,7 +51,7 @@ public class BookController {
 
     @GetMapping("/change/{id}")
     public String getEditBookPage(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("book", bookService.findOne(id));
+        model.addAttribute("bookDTO", bookService.findOne(id));
         return "editbook";
     }
 

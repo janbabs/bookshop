@@ -12,19 +12,17 @@
     <link th:href="@{/css/footer.css}" rel="stylesheet"/>
     <link th:href="@{/css/floatingtextsignin.css}" rel="stylesheet" />
 
-    <title th:text="${title}">Strona główna</title>
+    <title>Logowanie</title>
 </head>
 <body>
 <div th:replace="template :: nav"></div>
 
 <form class="form-signin" th:action="@{/login}" method="post">
+
     <div class="text-center mb-4">
         <h1 class="h3 mb-3 font-weight-normal">Logowanie</h1>
     </div>
 
-    <div class="alert alert-danger" th:if="${param.error}" id='errorDivWithCommunicate'>
-        <p id='alertIfWrongLoginOrPassword'>Niewłaściwe nazwa użytkownika lub hasło.</p>
-    </div>
     <div class="form-label-group">
         <input type="text" id="login" name="login" class="form-control" placeholder="Login" required autofocus>
         <label for="login">Login</label>
@@ -38,8 +36,5 @@
     <button class="btn btn-lg btn-primary btn-block" type="submit">Zaloguj</button>
     <a th:href="@{/user/add}" style="margin-top: 16px; width: 100%" class="btn btn-primary">Nie masz konta? Zarejestruj się tu!</a>
 </form>
-
-
-<div th:replace="template :: footer"></div>
 </body>
 </html>

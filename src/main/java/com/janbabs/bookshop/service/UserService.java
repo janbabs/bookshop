@@ -3,6 +3,7 @@ package com.janbabs.bookshop.service;
 import com.janbabs.bookshop.domain.User;
 import com.janbabs.bookshop.domain.userType;
 import com.janbabs.bookshop.exceptions.ResourceNotFoundException;
+import com.janbabs.bookshop.exceptions.UserAlreadyExistsException;
 import com.janbabs.bookshop.repository.UserRepository;
 import com.janbabs.bookshop.transport.UserDTO;
 import com.janbabs.bookshop.transport.UserEditDTO;
@@ -20,12 +21,35 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
-
     @Autowired
     private PasswordEncoder passwordEncoder;
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
+    }
+
+    public void save(UserDTO userDTO) {
+        if (loginExists(userDTO.getLogin())) {
+            throw new UserAlreadyExistsException( userDTO.getLogin());
+        }
+        User user = this.convertToUser(userDTO);
+        if (user.getUserType().equals(userType.ADMIN)) user.setCart(null);
+        userRepository.save(user);
+    }
+
+    private User convertToUser(UserDTO userDTO) {
+        String hashPassword = passwordEncoder.encode(userDTO.getPassword());
+        return new User(userDTO.getLogin(), hashPassword, userDTO.getFirstName(),
+                        userDTO.getLastName(), userDTO.getEmail(), userDTO.getUserType());
+    }
+
+    public boolean loginExists(String login) {
+        User user = userRepository.findByLogin(login);
+        return user != null;
+    }
+
+    public User findByLogin(String login) {
+        return userRepository.findByLogin(login);
     }
 
     public List<UserDTO> findAll() {
@@ -37,29 +61,8 @@ public class UserService {
         return userDTOS;
     }
 
-    public User findByLogin(String login) {
-        return userRepository.findByLogin(login);
-    }
-
-    public UserDTO findUserDT0ById(Long id) {
-        return new UserDTO(userRepository.getOne(id));
-    }
-
     public UserEditDTO findUserEditDTOById(Long id) {
         return new UserEditDTO(userRepository.getOne(id));
-    }
-
-    public void save(UserDTO userDTO) {
-        if (loginExists(userDTO.getLogin())) {
-            return;
-        }
-        User user = this.convertToUser(userDTO);
-        userRepository.save(user);
-    }
-
-    private User convertToUser(UserDTO userDTO) {
-        String hashPassword = passwordEncoder.encode(userDTO.getPassword());
-        return new User(userDTO.getLogin(), hashPassword, userDTO.getFirstName(), userDTO.getLastName(), userDTO.getEmail(), userDTO.getUserType());
     }
 
     public void promoteToAdmin(Long id) {
@@ -67,18 +70,12 @@ public class UserService {
         if (!userOptional.isPresent()) throw new ResourceNotFoundException("Użytkownik nie istnieje");
         User user = userOptional.get();
         user.setUserType(userType.ADMIN);
+        user.setCart(null);
         userRepository.saveAndFlush(user);
     }
 
     public boolean isUserAdmin(String login) {
         return userRepository.findByLogin(login).getUserType() == userType.ADMIN;
-    }
-
-    public boolean loginExists(String login) {
-        User user = userRepository.findByLogin(login);
-        if (user == null)
-            return false;
-        return true;
     }
 
     public void update(UserEditDTO userEditDTO) {
@@ -89,5 +86,9 @@ public class UserService {
         user.setFirstName(userEditDTO.getFirstName());
         user.setLastName(userEditDTO.getLastName());
         userRepository.saveAndFlush(user);
+    }
+
+    public UserEditDTO getUserIDTOLogin(String login) {
+        return new UserEditDTO(userRepository.findByLogin(login));
     }
 }

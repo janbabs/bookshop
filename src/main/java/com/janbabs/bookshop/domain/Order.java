@@ -11,9 +11,9 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@NoArgsConstructor
 @Getter
 @Setter
+@NoArgsConstructor
 @Table(name = "orders")
 public class Order {
     @Id
@@ -27,7 +27,6 @@ public class Order {
     @JoinColumn(name = "user_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
-
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<OrderItem> orderItems = new ArrayList<>();
     private Date orderDate;

@@ -51,7 +51,7 @@ public class OrderController {
         if (cart.isEmpty()){
             return "redirect:/cart";
         }
-        model.addAttribute("totalPrice", cart.getTotalPrice());
+        model.addAttribute("cart", cart);
         return "makeOrder";
     }
 
@@ -69,6 +69,7 @@ public class OrderController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String login = auth.getName();
         Cart cart = cartService.getCartByUserLogin(login);
+        if (cart.isEmpty()) throw new ResourceNotFoundException("Zamówienie nie zostało złożone, twój koszyk jest pusty!");
         orderService.save(orderDTO, login, cart);
         return "redirect:/order_completed";
     }

@@ -1,5 +1,5 @@
 package com.janbabs.bookshop.domain;
 
-        public enum orderStatus {
-            PRZYJETE, ZREALIZOWANE, ANULOWANE
+public enum orderStatus {
+    PRZYJETE, ZREALIZOWANE, ANULOWANE
 }

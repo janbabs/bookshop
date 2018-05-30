@@ -3,15 +3,14 @@ package com.janbabs.bookshop.domain;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import sun.security.util.Length;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-@NoArgsConstructor
 @Getter
 @Setter
+@NoArgsConstructor
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,16 +27,6 @@ public class Book {
     @Column(length = 200)
     private String urlPhoto;
 
-    /**
-     * Konstruktor obiektu book
-     *
-     * @param title tytuł
-     * @param author    autor
-     * @param price cena
-     * @param publisher nazwa wydawnictwa
-     * @param description   opis
-     * @param urlPhoto  link url do zdjęcia okładki
-     */
     public Book(String title, String author, BigDecimal price, String publisher, String description, String urlPhoto) {
         this.title = title;
         this.author = author;

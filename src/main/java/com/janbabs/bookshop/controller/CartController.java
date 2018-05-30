@@ -5,7 +5,6 @@ import com.janbabs.bookshop.domain.Cart;
 import com.janbabs.bookshop.repository.BookRepository;
 import com.janbabs.bookshop.service.CartService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -35,6 +34,7 @@ public class CartController {
         cartService.deleteAll(cartId);
         return "redirect:/cart";
     }
+
     @GetMapping("/add/{bookId}")
     public String addBookToCart(@PathVariable(name = "bookId") Long bookId) {
         Book book = null;
